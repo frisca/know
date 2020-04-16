@@ -40,7 +40,7 @@
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
 									foreach ($project as $key => $value){
-										if($value->status == 0){
+										if($value->status == 1){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
@@ -63,7 +63,7 @@
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
 									foreach ($project as $key => $value){
-										if($value->status == 1){
+										if($value->status == 0){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>

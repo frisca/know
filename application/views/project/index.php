@@ -35,6 +35,7 @@
 								  <th>Nama</th>
 								  <th>Dari Tanggal</th>
 								  <th>Sampai Tanggal</th>
+								  <th>Status</th>
 								  <th>Action</th>
 								</tr>
 						  	</thead>
@@ -46,6 +47,15 @@
 									<td><?php echo $value->nama_project;?></td>
 									<td><?php echo date('d/m/Y', strtotime($value->start_date));?></td>
 									<td><?php echo date('d/m/Y', strtotime($value->end_date));?></td>
+									<td>
+										<?php if($value->status == 0) { ?>
+											Upcoming
+										<?php }else if($value->status == 1){ ?>
+											Ongoing
+										<?php }else{ ?>
+											Release
+										<?php } ?>
+									</tc>
 									<td>
 										<a href="<?php echo base_url('project/edit/' . $value->id_project)?>">
 											<button class="btn btn-warning" type="button" style="padding: 8.5px 12px;">

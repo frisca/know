@@ -137,13 +137,21 @@ class Project extends CI_Controller {
 		if($this->form_validation->run() == false){
 			$this->load->view('project/add');
 		}else{
+			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) != date('Y-m-d')){
+				$status = 0;
+			}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) == date('Y-m-d')){
+				$status = 1;
+			}else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) != date('Y-m-d')){
+				$status = 2;
+			}
+
 			$data = array(
 				'id_product' => $this->input->post('id_product'),
 				'nama_project' => $this->input->post('title'),
 				'description' => $this->input->post('description'),
 				'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
 				'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
-				'status'   => 0,
+				'status'   => $status,
 				'created_date' => date('Y-m-d')
 			);
 
