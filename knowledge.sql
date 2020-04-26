@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2020 at 04:39 PM
+-- Generation Time: Apr 26, 2020 at 08:39 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -29,13 +29,20 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `comment` (
-  `id` bigint(20) NOT NULL,
-  `id_product` bigint(20) NOT NULL,
+  `id_comment` bigint(20) NOT NULL,
+  `id_project` bigint(20) NOT NULL,
   `comment` varchar(200) NOT NULL,
   `id_user` bigint(20) NOT NULL,
   `created_date` date NOT NULL,
   `updated_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id_comment`, `id_project`, `comment`, `id_user`, `created_date`, `updated_date`) VALUES
+(1, 2, 'Test', 3, '2020-04-27', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -57,7 +64,10 @@ CREATE TABLE `product` (
 
 INSERT INTO `product` (`id_product`, `nama_product`, `created_date`, `updated_date`, `description`) VALUES
 (1, 'Hotel', '2020-03-27', '0000-00-00', 'Product ini mengenai tempat hotel yang disediakan oleh sistem.'),
-(2, 'Tiket Pesawat', '2020-03-28', '0000-00-00', 'Product ini mengenai pembuatan untuk sistem website atau aplikasi penjualan tiket pesawat.');
+(2, 'Tiket Pesawat', '2020-03-28', '0000-00-00', 'Product ini mengenai pembuatan untuk sistem website atau aplikasi penjualan tiket pesawat.'),
+(3, 'Hotel1', '2020-04-26', '0000-00-00', 'testing'),
+(4, 'Hotel3', '2020-04-26', '0000-00-00', 'testing'),
+(5, 'Hotel4', '2020-04-26', '0000-00-00', 'Hotel4');
 
 -- --------------------------------------------------------
 
@@ -75,17 +85,18 @@ CREATE TABLE `project` (
   `created_date` date NOT NULL,
   `updated_date` date NOT NULL,
   `status` int(11) NOT NULL,
-  `keterangan` varchar(200) DEFAULT NULL
+  `keterangan` varchar(200) DEFAULT NULL,
+  `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
-INSERT INTO `project` (`id_project`, `nama_project`, `description`, `id_product`, `start_date`, `end_date`, `created_date`, `updated_date`, `status`, `keterangan`) VALUES
-(1, 'Hotel1', '<p>Project ini mengenai hotel1</p>\r\n', 1, '2020-03-28', '2020-03-31', '2020-03-28', '0000-00-00', 1, NULL),
-(2, 'Hotel2', '<p>Project ini mengenai hotel2</p>\r\n', 1, '2020-03-29', '2020-03-31', '2020-03-28', '0000-00-00', 2, 'Release 1.0'),
-(4, 'Pesawat2', '<p>pesawat</p>\r\n', 2, '2020-04-16', '2020-04-30', '2020-04-13', '0000-00-00', 0, NULL);
+INSERT INTO `project` (`id_project`, `nama_project`, `description`, `id_product`, `start_date`, `end_date`, `created_date`, `updated_date`, `status`, `keterangan`, `created_by`) VALUES
+(1, 'Hotel1', '<p>Project ini mengenai hotel1</p>\r\n', 1, '2020-03-28', '2020-03-31', '2020-03-28', '0000-00-00', 1, NULL, 4),
+(2, 'Hotel2', '<p>Project ini mengenai hotel2</p>\r\n', 1, '2020-03-29', '2020-03-31', '2020-03-28', '0000-00-00', 2, 'Release 1.0', 4),
+(4, 'Pesawat2', '<p>pesawat</p>\r\n', 2, '2020-04-16', '2020-04-30', '2020-04-13', '0000-00-00', 0, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -123,7 +134,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `nama`, `email`, `team`, `posi
 -- Indexes for table `comment`
 --
 ALTER TABLE `comment`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id_comment`);
 
 --
 -- Indexes for table `product`
@@ -151,13 +162,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_comment` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_product` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `project`

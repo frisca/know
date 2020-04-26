@@ -5,6 +5,10 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('all_model');
+		if($this->session->userdata('logged_in') == 1) {
+			$this->session->sess_destroy();
+			redirect(base_url('login'));
+		}
 	}
 
 	public function index()

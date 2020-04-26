@@ -1,6 +1,6 @@
 <div class="left-side sticky-left-side">
 	<div class="logo">
-		<h1><a href="index.html">Knowledge</a></h1>
+		<h1><a href="<?php echo base_url('home/index');?>">Knowledge</a></h1>
 	</div>
 	<div class="logo-icon text-center">
 		<a href="<?php echo base_url('home/index');?>"><i class="lnr lnr-home"></i> </a>

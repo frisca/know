@@ -22,7 +22,7 @@
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
 									<div class="col-xs-7 activity-desc">
-										<h5><a href="#"><?php echo $value->nama_project;?> - <?php echo $value->keterangan;?></a></h5>
+										<h5><a href="<?php echo base_url('project/detailProject/' . $value->id_project);?>"><?php echo $value->nama_project;?> - <?php echo $value->keterangan;?></a></h5>
 										<p><?php echo $value->description;?></p>
 									</div>
 									<div class="clearfix"></div>

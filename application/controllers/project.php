@@ -94,9 +94,10 @@ class Project extends CI_Controller {
 		 
 		 )
 		 ); 
-		 $this->load->model('all_model');
+		$this->load->model('all_model');
 		if($this->session->userdata('logged_in') != 1) {
-			redirect(base_url('login/index'));
+			$this->session->sess_destroy();
+			redirect(base_url('login'));
 		}
 	}
 
@@ -118,16 +119,6 @@ class Project extends CI_Controller {
 	}
 
 	public function processAdd(){
-		// $data = array(
-		// 	'id_product' => $this->input->post('id_product'),
-		// 	'title' => $this->input->post('title'),
-		// 	'description' => $this->input->post('description'),
-		// 	'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
-		// 	'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
-		// 	'status'   => 0
-		// );
-
-		// $result 
 		$this->form_validation->set_rules('id_product', 'Product', 'required');
 		$this->form_validation->set_rules('title', 'Judul', 'required');
 		$this->form_validation->set_rules('description', 'Deskripsi', 'required');
@@ -228,5 +219,31 @@ class Project extends CI_Controller {
 		$data['product'] = $this->all_model->getDataByCondition('product', $condition)->row();
 		$data['project'] = $this->all_model->getProductById($id)->result();
 		$this->load->view('project/detail', $data);
+	}
+
+	public function detailProject($id){
+		$data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
+		$data['comment'] = $this->all_model->getCommentByProject($id)->result();
+		$data['project'] = $this->all_model->getProjectById($id, $this->session->userdata('id'))->row();
+		$this->load->view('project/detailProject', $data);
+	}
+
+
+	public function insertComment(){
+		$data = array(
+			'comment' => $this->input->post('comment'),
+			'id_project' => $this->input->post('idProject'),
+			'id_user' => $this->input->post('idUser'),
+			'created_date' => date('Y-m-d')
+		);
+
+		$res = $this->all_model->insertData('comment', $data);
+		if($res == true){
+			$data = 20;
+			echo json_encode($data);
+		}else{
+			$data = 10;
+			echo json_encode($data);
+		}
 	}
 }

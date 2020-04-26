@@ -6,7 +6,8 @@ class Product extends CI_Controller {
 		parent::__construct();
 		$this->load->model('all_model');
 		if($this->session->userdata('logged_in') != 1) {
-			redirect(base_url('login/index'));
+			$this->session->sess_destroy();
+			redirect(base_url('login'));
 		}
 	}
 
