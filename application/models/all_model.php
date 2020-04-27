@@ -44,6 +44,12 @@ class All_model extends CI_Model {
 		left join user u on u.id = c.id_user where c.id_project = " . $id . " order by id_comment desc";
 		return $this->db->query($query); 
 	}
+
+	public function getProject($id)
+	{
+		$query = "SELECT p.*, pr.nama_product, pr.id_product, u.* FROM project p LEFT join product pr on p.id_product = pr.id_product left join user u on p.created_by = u.id where p.id_project = " . $id ;
+		return $this->db->query($query); 
+	}
 }
 
 /* End of file welcome.php */

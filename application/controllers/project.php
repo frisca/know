@@ -224,7 +224,7 @@ class Project extends CI_Controller {
 	public function detailProject($id){
 		$data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
 		$data['comment'] = $this->all_model->getCommentByProject($id)->result();
-		$data['project'] = $this->all_model->getProjectById($id, $this->session->userdata('id'))->row();
+		$data['project'] = $this->all_model->getProject($id)->row();
 		$this->load->view('project/detailProject', $data);
 	}
 
