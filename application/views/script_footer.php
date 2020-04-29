@@ -14,23 +14,9 @@
     		$('#comments').keypress(function(event){
 			    var keycode = (event.keyCode ? event.keyCode : event.which);
 			    if(keycode == '13'){
-			  //       $('.subcomment').prepend('<div class="geser"' + 
-			  //       	'style="margin-left: 100px;margin-top: -4px;">' +
-					//  	'<div class="media" style="padding-bottom: 5px;">' +
-					// 	    '<div class="media-left">' +
-					// 	      '<img src="<?php echo base_url('assets/images/10.jpg');?>" style="width:40px">' +
-					// 	    '</div>' +
-					// 	    '<div class="media-body">' +
-					// 	      '<h4 class="media-heading title"><?php echo $this->session->userdata('username');?></h4>' +
-					// 	      '<p class="komen">' +
-					// 	          $(this).val() +
-					// 	      '</p>' +
-					// 	    '</div>' +
-					// 	'</div>' +
-					// '</div>'); 
 					comment = $('input[name="comment"]').val();
                 	idUser = <?php echo $this->session->userdata('id');?>;
-                	idProject = <?php echo $project->id_project;?>;
+                	idProject = <?php if(empty($project)){ echo 0; }else{ echo $project->id_project; }?>;
 
                 	console.log(comment, idUser, idProject);
                 	if(comment != ""){
@@ -52,38 +38,6 @@
 								'</div>');
                 			}
                 		}, 'json');
-						// $.ajax(
-			   //              {
-			   //                  type:"post",
-			   //                  url: "<?php echo base_url('project/insertComment');?>",
-			   //                  data: { 
-			   //                  	comment: comment, 
-			   //                  	idUser : idUser,
-			   //                  	idProject : idProject
-			   //                  },
-			   //                  dataType : "json",
-			   //                  success:function(response)
-			   //                  {
-			   //                  	// console.log(response);
-			   //                   //    if(response == 20){
-			   //                      	$('.subcomment').prepend('<div class="geser"' + 
-						// 		        	'style="margin-left: 100px;margin-top: -4px;">' +
-						// 				 	'<div class="media" style="padding-bottom: 5px;">' +
-						// 					    '<div class="media-left">' +
-						// 					      '<img src="<?php echo base_url('assets/images/10.jpg');?>" style="width:40px">' +
-						// 					    '</div>' +
-						// 					    '<div class="media-body">' +
-						// 					      '<h4 class="media-heading title"><?php echo $this->session->userdata('username');?></h4>' +
-						// 					      '<p class="komen">' +
-						// 					          $(this).val() +
-						// 					      '</p>' +
-						// 					    '</div>' +
-						// 					'</div>' +
-						// 				'</div>'); 
-			   //                      // }
-			   //                  }
-			   //              }
-			   //          );
 			        }else{
 			        	alert("Comment tidak boleh kosong");
 			        	return false;
@@ -91,6 +45,28 @@
 			    }
 			});
 		});
+
+		function updateUpcoming(){
+			$.getJSON("<?php echo base_url('project/statusUpcoming');?>", function(data){
+				console.log('response: ', data);
+			});
+		}
+
+		function updateOngoing(){
+			$.getJSON("<?php echo base_url('project/statusOngoing');?>", function(data){
+				console.log('response: ', data);
+			});
+		}
+
+		function updateRelease(){
+			$.getJSON("<?php echo base_url('project/statusRelease');?>", function(data){
+				console.log('response: ', data);
+			});
+		}
+
+		// setInterval(function(){updateUpcoming()}, 1000);
+		// setInterval(function(){updateOngoing()}, 1000);
+		// setInterval(function(){updateRelease()}, 1000);
 	</script>
 </body>
 </html>

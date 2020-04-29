@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 26, 2020 at 08:39 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 5.6.36
+-- Host: localhost
+-- Waktu pembuatan: 29 Apr 2020 pada 14.29
+-- Versi server: 10.1.37-MariaDB
+-- Versi PHP: 5.6.39
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comment`
+-- Struktur dari tabel `comment`
 --
 
 CREATE TABLE `comment` (
@@ -38,7 +38,7 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `comment`
+-- Dumping data untuk tabel `comment`
 --
 
 INSERT INTO `comment` (`id_comment`, `id_project`, `comment`, `id_user`, `created_date`, `updated_date`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `comment` (`id_comment`, `id_project`, `comment`, `id_user`, `create
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Struktur dari tabel `product`
 --
 
 CREATE TABLE `product` (
@@ -59,7 +59,7 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `product`
+-- Dumping data untuk tabel `product`
 --
 
 INSERT INTO `product` (`id_product`, `nama_product`, `created_date`, `updated_date`, `description`) VALUES
@@ -72,7 +72,7 @@ INSERT INTO `product` (`id_product`, `nama_product`, `created_date`, `updated_da
 -- --------------------------------------------------------
 
 --
--- Table structure for table `project`
+-- Struktur dari tabel `project`
 --
 
 CREATE TABLE `project` (
@@ -85,23 +85,26 @@ CREATE TABLE `project` (
   `created_date` date NOT NULL,
   `updated_date` date NOT NULL,
   `status` int(11) NOT NULL,
-  `keterangan` varchar(200) DEFAULT NULL,
+  `release` int(11) DEFAULT NULL,
   `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `project`
+-- Dumping data untuk tabel `project`
 --
 
-INSERT INTO `project` (`id_project`, `nama_project`, `description`, `id_product`, `start_date`, `end_date`, `created_date`, `updated_date`, `status`, `keterangan`, `created_by`) VALUES
-(1, 'Hotel1', '<p>Project ini mengenai hotel1</p>\r\n', 1, '2020-03-28', '2020-03-31', '2020-03-28', '0000-00-00', 1, NULL, 4),
-(2, 'Hotel2', '<p>Project ini mengenai hotel2</p>\r\n', 1, '2020-03-29', '2020-03-31', '2020-03-28', '0000-00-00', 2, 'Release 1.0', 4),
-(4, 'Pesawat2', '<p>pesawat</p>\r\n', 2, '2020-04-16', '2020-04-30', '2020-04-13', '0000-00-00', 0, NULL, 0);
+INSERT INTO `project` (`id_project`, `nama_project`, `description`, `id_product`, `start_date`, `end_date`, `created_date`, `updated_date`, `status`, `release`, `created_by`) VALUES
+(1, 'Hotel1', '<p>Project ini mengenai hotel1</p>\r\n', 1, '2020-04-28', '2020-05-31', '2020-03-28', '2020-04-29', 1, 0, 4),
+(2, 'Hotel2', '<p>Project ini mengenai hotel2</p>\r\n', 1, '2020-06-30', '2020-03-31', '2020-03-28', '2020-04-29', 0, 0, 4),
+(4, 'Pesawat2', '<p>pesawat</p>\r\n', 2, '2020-04-01', '2020-04-29', '2020-04-13', '2020-04-29', 2, 1, 0),
+(8, 'Test', '<p>test</p>\n', 2, '2020-04-04', '2020-04-29', '2020-04-29', '0000-00-00', 2, NULL, 0),
+(9, 'Test1', '<p>Test</p>\n', 2, '2020-04-30', '2020-05-31', '2020-04-29', '0000-00-00', 0, NULL, 0),
+(10, 'Test2', '<p>test</p>\n', 2, '2020-04-29', '2020-04-30', '2020-04-29', '0000-00-00', 1, NULL, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Struktur dari tabel `user`
 --
 
 CREATE TABLE `user` (
@@ -118,7 +121,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `user`
+-- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `email`, `team`, `position`, `role`, `created_date`, `updated_date`) VALUES
@@ -131,53 +134,53 @@ INSERT INTO `user` (`id`, `username`, `password`, `nama`, `email`, `team`, `posi
 --
 
 --
--- Indexes for table `comment`
+-- Indeks untuk tabel `comment`
 --
 ALTER TABLE `comment`
   ADD PRIMARY KEY (`id_comment`);
 
 --
--- Indexes for table `product`
+-- Indeks untuk tabel `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id_product`);
 
 --
--- Indexes for table `project`
+-- Indeks untuk tabel `project`
 --
 ALTER TABLE `project`
   ADD PRIMARY KEY (`id_project`);
 
 --
--- Indexes for table `user`
+-- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `comment`
+-- AUTO_INCREMENT untuk tabel `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id_comment` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_comment` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT untuk tabel `product`
 --
 ALTER TABLE `product`
   MODIFY `id_product` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `project`
+-- AUTO_INCREMENT untuk tabel `project`
 --
 ALTER TABLE `project`
-  MODIFY `id_project` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_project` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `user`
+-- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;

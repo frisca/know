@@ -50,6 +50,34 @@ class All_model extends CI_Model {
 		$query = "SELECT p.*, pr.nama_product, pr.id_product, u.* FROM project p LEFT join product pr on p.id_product = pr.id_product left join user u on p.created_by = u.id where p.id_project = " . $id ;
 		return $this->db->query($query); 
 	}
+
+	public function updateRelease($date, $updated_date){
+		$query = "update project  p set p.status = 2, p.updated_date = '" . $updated_date . "' where p.end_date = '" . $date . "' and p.start_date != '" . $date . "'";
+		$this->db->query($query);
+		return true;
+	}
+
+	public function updateOngoing($date, $updated_date){
+		$query = "update project  p set p.status = 1, p.updated_date = '" . $updated_date . "' where '" . $date . "' between p.start_date and p.end_date and p.status != 2";
+		$this->db->query($query);
+		return true;
+	}
+
+	public function updateUpcoming($date, $updated_date){
+		$query = "update project  p set p.status = 0, p.updated_date = '" . $updated_date . "' where '" . $date . "' not between p.start_date and p.end_date";
+		$this->db->query($query);
+		return true;
+	}
+
+	public function getReleaseByNotUpdate($date){
+		$query = "select p.* from project p where p.updated_date != '" . $date . "' and status = 2 order by p.updated_date desc limit 1";
+		return $this->db->query($query);
+	}
+
+	public function getReleaseByUpdate($date){
+		$query = "select p.* from project p where p.updated_date = '" . $date . "' and status = 2";
+		return $this->db->query($query);
+	}
 }
 
 /* End of file welcome.php */

@@ -128,11 +128,12 @@ class Project extends CI_Controller {
 		if($this->form_validation->run() == false){
 			$this->load->view('project/add');
 		}else{
-			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) != date('Y-m-d')){
+			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
 				$status = 0;
-			}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) == date('Y-m-d')){
+			}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+			&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d')){
 				$status = 1;
-			}else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) != date('Y-m-d')){
+			}else{
 				$status = 2;
 			}
 
@@ -151,6 +152,8 @@ class Project extends CI_Controller {
 				$this->session->set_flashdata('error', 'Data project not saved');
 				redirect(base_url() . 'product/add');
 			}
+
+			
 
 			$this->session->set_flashdata('success', 'Data project saved');
 			redirect(base_url() . 'project/index');
@@ -245,5 +248,67 @@ class Project extends CI_Controller {
 			$data = 10;
 			echo json_encode($data);
 		}
+	}
+
+
+	public function statusOngoing(){
+		$res = $this->all_model->updateOngoing(date('Y-m-d'), date('Y-m-d')) ;
+		if($res == true){
+			$data = 'Berhasil';
+			echo json_encode($data);
+		}else{
+			$data = 'Gagal';
+			echo json_encode($data);
+		}
+	}
+
+	public function statusUpcoming(){
+		$res = $this->all_model->updateUpcoming(date('Y-m-d'), date('Y-m-d'));
+		if($res == true){
+			$data = 'Berhasil';
+			echo json_encode($data);
+		}else{
+			$data = 'Gagal';
+			echo json_encode($data);
+		}
+	}
+
+	public function statusRelease(){
+		$res = $this->all_model->updateRelease(date('Y-m-d'), date('Y-m-d'));
+		if($res == true){
+			$condition = array('status' => 2, 'updated_date' => date('Y-m-d'));
+			$release = $this->all_model->getDataByCondition('project', $condition)->result();
+			if(empty($release)){
+				
+			}else{
+				$res_release = $this->all_model->getReleaseByNotUpdate(date('Y-m-d'))->row();
+				$no_release = (int)$res_release->release + 1;
+				foreach($release as $key=>$value){
+					$condition = array('id_project' => $value->id_project);
+					$data = array(
+						'release' => (int) $no_release
+					);
+					$update_release = $this->all_model->updateData('project', $condition, $data);
+					if($update_release == "true"){
+						$datas = 'Berhasil';
+						echo json_encode($datas);
+					}else{
+						$datas = 'Gagal';
+						echo json_encode($datas);
+					}
+				}
+			}
+		}else{
+			$data = 'Gagal';
+			echo json_encode($data);
+		}
+		// $res = $this->all_model->updateRelease(date('Y-m-d'));
+		// if($res == true){
+		// 	$data = 'Berhasil';
+		// 	echo json_encode($data);
+		// }else{
+		// 	$data = 'Gagal';
+		// 	echo json_encode($data);
+		// }
 	}
 }
