@@ -40,26 +40,26 @@
 					    </div>
 
 						<div class="form-group has-warning">
-					        <label class="control-label" for="inputWarning1">Judul</label>
+					        <label class="control-label" for="inputWarning1">Title</label>
 					        <input type="text" class="form-control1 input-lg" placeholder="Judul ..." required name="title">
 					    </div>
 						
 						<div class="form-group has-warning">
-							<label class="control-label" for="inputWarning1">Deskripsi</label>
+							<label class="control-label" for="inputWarning1">Description</label>
 						    <textarea cols="80" id="edi" name="description" rows="10"></textarea>
 						</div>
 
 						<div class="form-group has-warning">
-							<label class="control-label" for="inputWarning1">Dari Tanggal</label>
+							<label class="control-label" for="inputWarning1">Start Date</label>
 						    <input type="text" id="start_date" class="form-control1 input-lg" name="start_date" value=""></p>
 						</div>
 
 						<div class="form-group has-warning">
-							<label class="control-label" for="inputWarning1">Sampai Tanggal</label>
+							<label class="control-label" for="inputWarning1">End Date</label>
 						    <input type="text" id="end_date" class="form-control1 input-lg" name="end_date" value=""></p>
 						</div>
 
-					    <button class="btn-success btn" type="submit">Save</button>
+					    <button class="btn-success btn" type="submit" id="project">Save</button>
 					    <a href="<?php echo base_url('project/index');?>">
 					   		<button class="btn-default btn" type="button" style="padding: 9.5px 12px;">Cancel</button>
 					   	</a>

@@ -35,23 +35,23 @@
 						
 						<div class="form-group has-warning">
 					        <label class="control-label" for="inputWarning1">Nama</label>
-					        <input type="text" class="form-control1" id="inputWarning1" name="nama" value="<?php echo $profile->nama;?>">
+					        <input type="text" class="form-control1" id="inputWarning1" name="nama" value="<?php echo $profile->nama;?>"
+							required>
 					    </div>
 					    <div class="form-group has-warning">
 					        <label class="control-label" for="inputWarning1">Email</label>
-					        <input type="text" class="form-control1" id="inputWarning1" name="email" value="<?php echo $profile->email;?>">
+					        <input type="text" class="form-control1" id="inputWarning1" name="email" value="<?php echo $profile->email;?>"
+							required>
 					    </div>
 					    <div class="form-group has-warning">
 					        <label class="control-label" for="inputWarning1">Username</label>
-					        <input type="text" class="form-control1" id="inputWarning1" name="username" value="<?php echo $profile->username;?>">
-					    </div>
-					    <div class="form-group has-warning">
-					        <label class="control-label" for="inputWarning1">Password</label>
-					        <input type="password" class="form-control1" id="inputWarning1" name="password">
+					        <input type="text" class="form-control1" id="inputWarning1" name="username" value="<?php echo $profile->username;?>"
+							required>
 					    </div>
 					    <div class="form-group has-warning">
 					        <label class="control-label" for="inputWarning1">Team</label>
-					        <input type="text" class="form-control1" id="inputWarning1" name="team" value="<?php echo $profile->team;?>">
+					        <input type="text" class="form-control1" id="inputWarning1" name="team" value="<?php echo $profile->team;?>"
+							required>
 					    </div>
 					    <div class="form-group has-warning">
 					        <label class="control-label" for="inputWarning1">Position</label>
@@ -62,7 +62,7 @@
 					       	<?php
 					       		}else{
 					       	?>
-								<select id="selector1" class="form-control1" name="position">
+								<select id="selector1" class="form-control1" name="position" required>
 						        	<?php if($profile->position == 'Supervisor'){?>
 										<option value="Supervisor" selected>Supervisor</option>
 										<option value="Non Supervisor">Non Supervisor</option>

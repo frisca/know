@@ -17,13 +17,17 @@
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
 									foreach ($project as $key => $value){
-										if($value->status == 2){
+										if($value->status == 2 && $value->release != 0 || $value->release != null){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
 									<div class="col-xs-7 activity-desc">
-										<h5><a href="<?php echo base_url('project/detailProject/' . $value->id_project);?>"><?php echo $value->nama_project;?> - <?php echo $value->release;?></a></h5>
-										<p><?php echo $value->description;?></p>
+										<h5>
+											<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
+												- 
+											<a href="<?php echo base_url('release/lists/' . $value->release);?>">Release <?php echo $value->release;?></a>
+										</h5>
+										<p><?php echo $product->description;?></p>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -45,8 +49,12 @@
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
 									<div class="col-xs-7 activity-desc">
-										<h5><a href="#"><?php echo $value->nama_project;?></a></h5>
-										<p><?php echo $value->description;?></p>
+									<h5>
+										<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
+											- 
+										<a href="<?php echo base_url('ongoing/detail/' . $value->id_project);?>"><?php echo $value->nama_project;?></a>
+									</h5>
+									<p><?php echo $product->description;?></p>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -63,13 +71,17 @@
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
 									foreach ($project as $key => $value){
-										if($value->status == 0){
+										if($value->status == 0 && $value->status != null){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
 									<div class="col-xs-7 activity-desc">
-										<h5><a href="#"><?php echo $value->nama_project;?></a></h5>
-										<p><?php echo $value->description;?></p>
+									<h5>
+										<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
+											- 
+										<a href="<?php echo base_url('project/ongoing/' . $value->id_project);?>"><?php echo $value->nama_project;?></a>
+									</h5>
+									<p><?php echo $product->description;?></p>
 									</div>
 									<div class="clearfix"></div>
 								</div>

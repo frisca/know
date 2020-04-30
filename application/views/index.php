@@ -15,7 +15,7 @@
 					?>
 						<div class="col-md-3 span_9" style="margin-top: 30px;">
 							<div class="activity_box activity_box1" style="min-height: 120px;">
-								<a href="<?php echo base_url("project/detail/" . $value->id_product);?>">
+								<a href="<?php echo base_url("project/lists/" . $value->id_product);?>">
 									<h3 style="text-align: center;background: lightseagreen;"><?php echo $value->nama_product?></h3>
 								</a>
 								<div style="text-align: justify;margin: 10px 10px 10px 10px;"><?php echo $value->description?></div>

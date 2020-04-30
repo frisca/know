@@ -46,14 +46,22 @@
 									<td><?php echo $value->nama_product;?></td>
 									<td><?php echo $value->description;?></td>
 									<td>
+										<?php if($this->session->userdata('role') != 3){?>
 										<a href="<?php echo base_url('product/edit/' . $value->id_product)?>">
-											<button class="btn btn-warning" type="button">
+											<button class="btn btn-warning" type="button" title="Edit">
 												<i class="lnr lnr-pencil"></i>
 											</button>
 										</a>
 										<a href="<?php echo base_url('product/delete/' . $value->id_product)?>">
-											<button class="btn btn-danger" type="button" style="padding: 8.5px 12px;">
+											<button class="btn btn-danger" type="button" style="padding: 8.5px 12px;" 
+											title="Delete">
 												<i class="lnr lnr-trash"></i>
+											</button>
+										</a>
+										<?php } ?>
+										<a href="<?php echo base_url('product/detail/' . $value->id_product)?>">
+											<button class="btn btn-info" type="button" title="Lihat">
+												<i class="lnr lnr-eye"></i>
 											</button>
 										</a>
 									</td>

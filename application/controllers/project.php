@@ -144,7 +144,8 @@ class Project extends CI_Controller {
 				'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
 				'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
 				'status'   => $status,
-				'created_date' => date('Y-m-d')
+				'created_date' => date('Y-m-d'),
+				'created_by' => $this->session->userdata('id')
 			);
 
 			$res = $this->all_model->insertData('project', $data);
@@ -152,8 +153,6 @@ class Project extends CI_Controller {
 				$this->session->set_flashdata('error', 'Data project not saved');
 				redirect(base_url() . 'product/add');
 			}
-
-			
 
 			$this->session->set_flashdata('success', 'Data project saved');
 			redirect(base_url() . 'project/index');
@@ -167,8 +166,9 @@ class Project extends CI_Controller {
  
  		//Add Ckfinder to Ckeditor
 		$this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/ckfinder/');
+		$condition = array('id_project' => $id);
 		$data['product'] = $this->all_model->getAllData('product')->result();  
-		$data['project'] = $this->all_model->getProjectById($id)->row();
+		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
 		$this->load->view('project/edit', $data);
 	}
 
@@ -184,14 +184,23 @@ class Project extends CI_Controller {
 		if($this->form_validation->run() == false){
 			$this->load->view('project/edit');
 		}else{
+			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
+				$status = 0;
+			}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+			&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
+				$status = 1;
+			}else{
+				$status = 2;
+			}
+
 			$data = array(
 				'id_product' => $this->input->post('id_product'),
 				'nama_project' => $this->input->post('title'),
 				'description' => $this->input->post('description'),
 				'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
 				'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
-				'status'   => 0,
-				'created_date' => date('Y-m-d')
+				'status'   => $status,
+				'updated_date' => date('Y-m-d')
 			);
 
 			$res = $this->all_model->updateData('project', $condition, $data);
@@ -217,98 +226,205 @@ class Project extends CI_Controller {
 		redirect(base_url() . "project/index");
 	}
 
-	public function detail($id){
+	public function lists($id){
 		$condition = array("id_product" => $id);
 		$data['product'] = $this->all_model->getDataByCondition('product', $condition)->row();
 		$data['project'] = $this->all_model->getProductById($id)->result();
-		$this->load->view('project/detail', $data);
+		// var_dump($data['project']);exit();
+		$this->load->view('project/list', $data);
 	}
 
-	public function detailProject($id){
-		$data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
-		$data['comment'] = $this->all_model->getCommentByProject($id)->result();
-		$data['project'] = $this->all_model->getProject($id)->row();
-		$this->load->view('project/detailProject', $data);
-	}
-
-
-	public function insertComment(){
-		$data = array(
-			'comment' => $this->input->post('comment'),
-			'id_project' => $this->input->post('idProject'),
-			'id_user' => $this->input->post('idUser'),
-			'created_date' => date('Y-m-d')
-		);
-
-		$res = $this->all_model->insertData('comment', $data);
+	public function updateRelease(){
+		$condition = array('id_project' => $this->input->post('id_project'));
+		$data = array('release' => $this->input->post('release'));
+		$res = $this->all_model->updateData('project', $condition, $data);
 		if($res == true){
-			$data = 20;
-			echo json_encode($data);
-		}else{
-			$data = 10;
-			echo json_encode($data);
+			$this->session->set_flashdata('success', 'Data project released');
+			redirect(base_url() . "project/index");
 		}
+		$this->session->set_flashdata('error', 'Data project not released');
+		redirect(base_url() . "project/index");
 	}
 
+	// public function release($id){
+	// 	$condition = array('release' => $id);
+	// 	$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
+	// 	$this->load->view('project/release', $data);
+	// }
 
-	public function statusOngoing(){
-		$res = $this->all_model->updateOngoing(date('Y-m-d'), date('Y-m-d')) ;
-		if($res == true){
-			$data = 'Berhasil';
-			echo json_encode($data);
-		}else{
-			$data = 'Gagal';
-			echo json_encode($data);
-		}
-	}
+	// public function comment($id){
+	// 	$data['project'] = $this->all_model->getDetailProjectById($id)->row();
+	// 	$data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
+	// 	$data['comment'] = $this->all_model->getCommentByProject($id)->result();
+	// 	$this->load->view('project/comment', $data);
+	// }
 
-	public function statusUpcoming(){
-		$res = $this->all_model->updateUpcoming(date('Y-m-d'), date('Y-m-d'));
-		if($res == true){
-			$data = 'Berhasil';
-			echo json_encode($data);
-		}else{
-			$data = 'Gagal';
-			echo json_encode($data);
-		}
-	}
 
-	public function statusRelease(){
-		$res = $this->all_model->updateRelease(date('Y-m-d'), date('Y-m-d'));
-		if($res == true){
-			$condition = array('status' => 2, 'updated_date' => date('Y-m-d'));
-			$release = $this->all_model->getDataByCondition('project', $condition)->result();
-			if(empty($release)){
+	// public function insertComment(){
+	// 	$data = array(
+	// 		'comment' => $this->input->post('comment'),
+	// 		'id_project' => $this->input->post('idProject'),
+	// 		'id_user' => $this->input->post('idUser'),
+	// 		'created_date' => date('Y-m-d')
+	// 	);
+
+	// 	$res = $this->all_model->insertData('comment', $data);
+	// 	if($res == true){
+	// 		$data = $this->all_model->getCommentByDesc($this->input->post('idProject'))->row();
+	// 		echo json_encode($data);
+	// 	}else{
+	// 		$data = 10;
+	// 		echo json_encode($data);
+	// 	}
+	// }
+
+
+	// public function statusOngoing(){
+	// 	$res = $this->all_model->updateOngoing(date('Y-m-d'), date('Y-m-d')) ;
+	// 	if($res == true){
+	// 		$data = 'Berhasil';
+	// 		echo json_encode($data);
+	// 	}else{
+	// 		$data = 'Gagal';
+	// 		echo json_encode($data);
+	// 	}
+	// }
+
+	// public function statusUpcoming(){
+	// 	$res = $this->all_model->updateUpcoming(date('Y-m-d'), date('Y-m-d'));
+	// 	if($res == true){
+	// 		$data = 'Berhasil';
+	// 		echo json_encode($data);
+	// 	}else{
+	// 		$data = 'Gagal';
+	// 		echo json_encode($data);
+	// 	}
+	// }
+
+	// public function statusRelease(){
+	// 	$res = $this->all_model->updateRelease(date('Y-m-d'), date('Y-m-d'));
+	// 	if($res == true){
+	// 		$condition = array('status' => 2, 'updated_date' => date('Y-m-d'));
+	// 		$release = $this->all_model->getDataByCondition('project', $condition)->result();
+	// 		if(empty($release)){
 				
-			}else{
-				$res_release = $this->all_model->getReleaseByNotUpdate(date('Y-m-d'))->row();
-				$no_release = (int)$res_release->release + 1;
-				foreach($release as $key=>$value){
-					$condition = array('id_project' => $value->id_project);
-					$data = array(
-						'release' => (int) $no_release
-					);
-					$update_release = $this->all_model->updateData('project', $condition, $data);
-					if($update_release == "true"){
-						$datas = 'Berhasil';
-						echo json_encode($datas);
-					}else{
-						$datas = 'Gagal';
-						echo json_encode($datas);
-					}
-				}
-			}
-		}else{
-			$data = 'Gagal';
-			echo json_encode($data);
-		}
-		// $res = $this->all_model->updateRelease(date('Y-m-d'));
-		// if($res == true){
-		// 	$data = 'Berhasil';
-		// 	echo json_encode($data);
-		// }else{
-		// 	$data = 'Gagal';
-		// 	echo json_encode($data);
-		// }
-	}
+	// 		}else{
+	// 			$res_release = $this->all_model->getReleaseByNotUpdate(date('Y-m-d'))->row();
+	// 			$no_release = (int)$res_release->release + 1;
+	// 			foreach($release as $key=>$value){
+	// 				$condition = array('id_project' => $value->id_project);
+	// 				$data = array(
+	// 					'release' => (int) $no_release
+	// 				);
+	// 				$update_release = $this->all_model->updateData('project', $condition, $data);
+	// 				if($update_release == "true"){
+	// 					$datas = 'Berhasil';
+	// 					echo json_encode($datas);
+	// 				}else{
+	// 					$datas = 'Gagal';
+	// 					echo json_encode($datas);
+	// 				}
+	// 			}
+	// 		}
+	// 	}else{
+	// 		$data = 'Gagal';
+	// 		echo json_encode($data);
+	// 	}
+	// 	// $res = $this->all_model->updateRelease(date('Y-m-d'));
+	// 	// if($res == true){
+	// 	// 	$data = 'Berhasil';
+	// 	// 	echo json_encode($data);
+	// 	// }else{
+	// 	// 	$data = 'Gagal';
+	// 	// 	echo json_encode($data);
+	// 	// }
+	// }
+
+	// public function updateRelease(){
+	// 	$condition = array('id_project' => $this->input->post('id_project'));
+	// 	$data = array('release' => $this->input->post('release'));
+	// 	$res = $this->all_model->updateData('project', $condition, $data);
+	// 	if($res == true){
+	// 		$this->session->set_flashdata('success', 'Data project released');
+	// 		redirect(base_url() . "project/index");
+	// 	}
+	// 	$this->session->set_flashdata('error', 'Data project not released');
+	// 	redirect(base_url() . "project/index");
+	// }
+
+	// public function release($id){
+	// 	$condition = array('release' => $id);
+	// 	$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
+	// 	$this->load->view('project/release', $data);
+	// }
+
+	// public function editComment($id)
+	// {
+	// 	$this->load->library('CKEditor');
+ 	// 	$this->load->library('CKFinder');
+ 
+ 	// 	//Add Ckfinder to Ckeditor
+	// 	$this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/ckfinder/');
+	// 	$condition = array('id_project' => $id);
+	// 	$data['product'] = $this->all_model->getAllData('product')->result();  
+	// 	$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+	// 	$this->load->view('project/editComment', $data);
+	// }
+
+	// public function processEditComment(){
+	// 	$condition = array('id_project' => $this->input->post('id'));
+	// 	$this->form_validation->set_rules('id_product', 'Product', 'required');
+	// 	$this->form_validation->set_rules('title', 'Judul', 'required');
+	// 	$this->form_validation->set_rules('description', 'Deskripsi', 'required');
+	// 	$this->form_validation->set_rules('start_date', 'Dari Tanggal', 'required');
+	// 	$this->form_validation->set_rules('end_date', 'Sampai Tanggal', 'required');
+
+	// 	if($this->form_validation->run() == false){
+	// 		$this->load->view('project/editComment');
+	// 	}else{
+	// 		if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
+	// 			$status = 0;
+	// 		}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+	// 		&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
+	// 			$status = 1;
+	// 		}else{
+	// 			$status = 2;
+	// 		}
+
+	// 		$data = array(
+	// 			'id_product' => $this->input->post('id_product'),
+	// 			'nama_project' => $this->input->post('title'),
+	// 			'description' => $this->input->post('description'),
+	// 			'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
+	// 			'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
+	// 			'status'   => $status,
+	// 			'updated_date' => date('Y-m-d')
+	// 		);
+
+	// 		$res = $this->all_model->updateData('project', $condition, $data);
+	// 		if($res == false){
+	// 			$this->session->set_flashdata('error', 'Data project not saved');
+	// 			redirect(base_url() . 'product/editComment/' . $this->input->post('id'));
+	// 		}
+
+	// 		$this->session->set_flashdata('success', 'Data project saved');
+	// 		redirect(base_url() . 'project/comment/' . $this->input->post('id'));
+	// 	}
+	// }
+
+	// public function deleteComment($id){
+	// 	$condition = array('id_project' => $id);
+	// 	$project = $this->all_model->getDataByCondition('project', $condition)->row();
+	// 	$release = $project->release;
+
+	// 	$comment = $this->all_model->deleteData('comment', $condition);
+	// 	if($comment == false){
+	// 		$this->session->set_flashdata('error', 'Data project not deleted');
+	// 		redirect(base_url() . 'project/comment/' . $id);
+	// 	}
+
+	// 	$res = $this->all_model->deleteData('project', $condition);
+	// 	$this->session->set_flashdata('success', 'Data project deleted');
+	// 	redirect(base_url() . 'project/release/' . $release);
+	// }
 }

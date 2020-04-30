@@ -40,8 +40,9 @@ class All_model extends CI_Model {
 
 	public function getCommentByProject($id)
 	{
-		$query = "SELECT c.*, p.*, u.* FROM comment c LEFT join project p on p.id_project = c.id_project 
-		left join user u on u.id = c.id_user where c.id_project = " . $id . " order by id_comment desc";
+		$query = "SELECT c.*, p.*, u.*, pr.* FROM comment c LEFT join project p on p.id_project = c.id_project 
+		left join user u on u.id = c.id_user left join product pr on pr.id_product = p.id_product 
+		where c.id_project = " . $id . " order by id_comment desc";
 		return $this->db->query($query); 
 	}
 
@@ -69,14 +70,32 @@ class All_model extends CI_Model {
 		return true;
 	}
 
-	public function getReleaseByNotUpdate($date){
-		$query = "select p.* from project p where p.updated_date != '" . $date . "' and status = 2 order by p.updated_date desc limit 1";
+	// public function getReleaseByNotUpdate($date){
+	// 	$query = "select p.* from project p where p.updated_date != '" . $date . "' and status = 2 order by p.updated_date desc limit 1";
+	// 	return $this->db->query($query);
+	// }
+
+	// public function getReleaseByUpdate($date){
+	// 	$query = "select p.* from project p where p.updated_date = '" . $date . "' and status = 2";
+	// 	return $this->db->query($query);
+	// }
+
+	public function getListProjectByRelease(){
+		$query = "select p.* from project p where status = 2";
 		return $this->db->query($query);
 	}
 
-	public function getReleaseByUpdate($date){
-		$query = "select p.* from project p where p.updated_date = '" . $date . "' and status = 2";
-		return $this->db->query($query);
+	public function getDetailProjectById($id)
+	{
+		$query = "SELECT p.*, pr.nama_product, pr.id_product, u.* FROM project p LEFT join product pr on p.id_product = pr.id_product left join user u on p.created_by = u.id where p.id_project = " . $id;
+		return $this->db->query($query); 
+	}
+
+	public function getCommentByDesc($id)
+	{
+		$query = "SELECT c.*, p.*, u.* FROM comment c LEFT join project p on p.id_project = c.id_project 
+		left join user u on u.id = c.id_user where c.id_project = " . $id . " order by id_comment desc limit 1 ";
+		return $this->db->query($query); 
 	}
 }
 

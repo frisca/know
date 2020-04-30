@@ -14,6 +14,7 @@
 			<li><a href="<?php echo base_url('product/index')?>"><i class="lnr lnr-book"></i> <span>Product</span></a></li>
 			<li><a href="<?php echo base_url('project/index')?>"><i class="lnr lnr-plus-circle"></i> <span>Project</span></a></li>
 		<?php }else{ ?>
+			<li><a href="<?php echo base_url('product/index')?>"><i class="lnr lnr-book"></i> <span>Product</span></a></li>
 			<li><a href="<?php echo base_url('project/index')?>"><i class="lnr lnr-plus-circle"></i> <span>Project</span></a></li>
 		<?php } ?>
 		</ul>

@@ -51,6 +51,12 @@ class Product extends CI_Controller {
 		$this->load->view('product/edit', $data);
 	}
 
+	public function detail($id){
+		$condition = array("id_product" => $id);
+		$data['product'] = $this->all_model->getDataByCondition('product', $condition)->row();
+		$this->load->view('product/detail', $data);
+	}
+
 	public function processEdit(){
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 

@@ -11,7 +11,7 @@
 			<div class="graphs">
 				<h3 class="blank1">Edit Data Project</h3>
 				<div class="panel-body panel-body-inputin">
-					<form role="form" class="form-horizontal" method="post" action="<?php echo base_url('project/processEdit');?>">
+					<form role="form" class="form-horizontal" method="post" action="<?php echo base_url('upcoming/processEdit');?>">
 						<?php if(validation_errors() != ""){?>
 							<div class="alert alert-danger form-group">
 								<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -68,7 +68,7 @@
 						</div>
 
 					    <button class="btn-success btn" type="submit" id="project">Save</button>
-					    <a href="<?php echo base_url('project/index');?>">
+					    <a href="<?php echo base_url('upcoming/detail/' . $project->id_project);?>">
 					   		<button class="btn-default btn" type="button" style="padding: 9.5px 12px;">Cancel</button>
 					   	</a>
 					</form>
