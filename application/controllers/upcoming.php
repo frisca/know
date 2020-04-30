@@ -170,11 +170,11 @@ class Upcoming extends CI_Controller {
 		$comment = $this->all_model->deleteData('comment', $condition);
 		if($comment == false){
 			$this->session->set_flashdata('error', 'Data project not deleted');
-			redirect(base_url() . 'ongoing/detail/' . $id);
+			redirect(base_url() . 'upcoming/detail/' . $id);
 		}
 
 		$res = $this->all_model->deleteData('project', $condition);
 		$this->session->set_flashdata('success', 'Data project deleted');
-		redirect(base_url() . 'upcoming/lists/' . $product);
+		redirect(base_url() . 'project/lists/' . $product);
 	}
 }

@@ -79,7 +79,7 @@
 									<h5>
 										<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
 											- 
-										<a href="<?php echo base_url('project/ongoing/' . $value->id_project);?>"><?php echo $value->nama_project;?></a>
+										<a href="<?php echo base_url('upcoming/detail/' . $value->id_project);?>"><?php echo $value->nama_project;?></a>
 									</h5>
 									<p><?php echo $product->description;?></p>
 									</div>

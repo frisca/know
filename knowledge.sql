@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 29 Apr 2020 pada 14.29
+-- Waktu pembuatan: 30 Apr 2020 pada 09.13
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 5.6.39
 
@@ -36,13 +36,6 @@ CREATE TABLE `comment` (
   `created_date` date NOT NULL,
   `updated_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `comment`
---
-
-INSERT INTO `comment` (`id_comment`, `id_project`, `comment`, `id_user`, `created_date`, `updated_date`) VALUES
-(1, 2, 'Test', 3, '2020-04-27', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -85,21 +78,9 @@ CREATE TABLE `project` (
   `created_date` date NOT NULL,
   `updated_date` date NOT NULL,
   `status` int(11) NOT NULL,
-  `release` int(11) DEFAULT NULL,
+  `release` varchar(10) DEFAULT NULL,
   `created_by` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `project`
---
-
-INSERT INTO `project` (`id_project`, `nama_project`, `description`, `id_product`, `start_date`, `end_date`, `created_date`, `updated_date`, `status`, `release`, `created_by`) VALUES
-(1, 'Hotel1', '<p>Project ini mengenai hotel1</p>\r\n', 1, '2020-04-28', '2020-05-31', '2020-03-28', '2020-04-29', 1, 0, 4),
-(2, 'Hotel2', '<p>Project ini mengenai hotel2</p>\r\n', 1, '2020-06-30', '2020-03-31', '2020-03-28', '2020-04-29', 0, 0, 4),
-(4, 'Pesawat2', '<p>pesawat</p>\r\n', 2, '2020-04-01', '2020-04-29', '2020-04-13', '2020-04-29', 2, 1, 0),
-(8, 'Test', '<p>test</p>\n', 2, '2020-04-04', '2020-04-29', '2020-04-29', '0000-00-00', 2, NULL, 0),
-(9, 'Test1', '<p>Test</p>\n', 2, '2020-04-30', '2020-05-31', '2020-04-29', '0000-00-00', 0, NULL, 0),
-(10, 'Test2', '<p>test</p>\n', 2, '2020-04-29', '2020-04-30', '2020-04-29', '0000-00-00', 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -126,7 +107,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `email`, `team`, `position`, `role`, `created_date`, `updated_date`) VALUES
 (1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin1', 'admin@gmail.com', 'IT', 'Admin', 1, '2020-01-26', '2020-02-20'),
-(3, 'staff', '827ccb0eea8a706c4c34a16891f84e7b', 'staff', 'staff@gmail.com', 'IT', 'Non Supervisor', 3, '2020-02-27', NULL),
+(3, 'staff', 'e10adc3949ba59abbe56e057f20f883e', 'stafff', 'staff@gmail.com', 'IT', 'Non Supervisor', 3, '2020-02-27', '2020-04-29'),
 (4, 'supervisor', '827ccb0eea8a706c4c34a16891f84e7b', 'supervisor', 'supervisor@gmail.com', 'IT', 'Supervisor', 2, '2020-03-23', NULL);
 
 --
@@ -177,7 +158,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT untuk tabel `project`
 --
 ALTER TABLE `project`
-  MODIFY `id_project` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_project` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
