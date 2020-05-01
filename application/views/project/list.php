@@ -9,15 +9,16 @@
 		<?php echo $this->load->view('header');?>
 		<div id="page-wrapper">
 			<div class="graphs">
-				<h3 class="blank1"><?php echo $product->nama_product;?></h3>
+				<h3 class="blank1"><?php if(!empty($product)){ echo $product->nama_product; }?></h3>
 				<div class="col_1">
 					<div class="col-md-4 span_8">
 						<div class="activity_box activity_box1">
 							<h3>Release</h3>
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
-									foreach ($project as $key => $value){
-										if($value->status == 2 && $value->release != 0 || $value->release != null){
+									if(!empty($project)){
+										foreach ($project as $key => $value){
+											if($value->status == 2 && $value->release != 0){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
@@ -32,6 +33,22 @@
 									<div class="clearfix"></div>
 								</div>
 								<?php
+											}else{
+								?>
+								<div class="activity-row">
+									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
+									<div class="col-xs-7 activity-desc">
+										<h5>
+											<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
+												- 
+											<a href="<?php echo base_url('release/lists/x.x');?>">Release X.X</a>
+										</h5>
+										<p><?php echo $product->description;?></p>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<?php
+											}
 										}
 									}
 								?>
@@ -43,8 +60,9 @@
 							<h3>Ongoing</h3>
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
-									foreach ($project as $key => $value){
-										if($value->status == 1){
+									if(!empty($project)){	
+										foreach ($project as $key => $value){
+											if($value->status == 1){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
@@ -59,6 +77,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<?php
+											}
 										}
 									}
 								?>
@@ -70,8 +89,9 @@
 							<h3>Upcoming</h3>
 							<div class="scrollbar scrollbar1" id="style-2">
 								<?php
-									foreach ($project as $key => $value){
-										if($value->status == 0 && $value->status != null){
+									if(!empty($project)){
+										foreach ($project as $key => $value){
+											if($value->status == 0 && $value->status != null){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
@@ -86,6 +106,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<?php
+											}
 										}
 									}
 								?>

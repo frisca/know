@@ -78,6 +78,11 @@
 												<i class="lnr lnr-checkmark-circle"></i>
 											</button>
 										<?php } ?>
+										<a href="<?php echo base_url('project/views/' . $value->id_project)?>">
+											<button class="btn btn-info" type="button" title="Lihat">
+												<i class="lnr lnr-eye"></i>
+											</button>
+										</a>
 									</td>
 								</tr>
 								<?php

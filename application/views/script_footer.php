@@ -103,7 +103,7 @@
 				source: "<?php echo site_url('project/get_autocomplete/?');?>",
 				select: function(event, ui) {
 					var url = ui.item.value;
-					location.href = "<?php echo base_url('project/lists');?>" + "/" + url;
+					location.href = "<?php echo base_url('project/views');?>" + "/" + url;
 				},
 				open: function(event, ui) {
 					$(".ui-autocomplete").css("z-index", 1000)

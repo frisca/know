@@ -102,9 +102,15 @@ class Release extends CI_Controller {
 	}
 
 	public function lists($id){
-		$condition = array('release' => $id);
-		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
-		$this->load->view('release/list', $data);
+		if($id != 'x.x'){
+			$condition = array('release' => $id);
+			$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
+			$this->load->view('release/list', $data);
+		}else{
+			$condition = array('release' => null);
+			$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
+			$this->load->view('release/list', $data);
+		}
 	}
 
 	public function detail($id){

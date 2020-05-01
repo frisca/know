@@ -305,4 +305,17 @@ class Project extends CI_Controller {
 			}
         }
     }
+
+    public function views($id)
+	{
+		$this->load->library('CKEditor');
+ 		$this->load->library('CKFinder');
+ 
+ 		//Add Ckfinder to Ckeditor
+		$this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/ckfinder/');
+		$condition = array('id_project' => $id);
+		$data['product'] = $this->all_model->getAllData('product')->result();  
+		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+		$this->load->view('project/view', $data);
+	}
 }
