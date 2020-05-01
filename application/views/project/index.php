@@ -12,7 +12,7 @@
 				<h3 class="blank1">Project</h3>
 				<div class="xs tabls">
 					<a href="<?php echo base_url('project/add')?>">
-						<?php if($this->session->userdata('role') != 2){ ?>
+						<?php if($this->session->userdata('role') != 1){ ?>
 							<button class="btn btn-primary" type="button" style="float: right;margin-bottom: 20px;">Tambah</button>
 						<?php } ?>
 					</a>
