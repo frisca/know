@@ -97,6 +97,18 @@
 					$('#comments').val('');
 				}
 			});
+
+
+			$('#search').autocomplete({
+				source: "<?php echo site_url('project/get_autocomplete/?');?>",
+				select: function(event, ui) {
+					var url = ui.item.value;
+					location.href = "<?php echo base_url('project/lists');?>" + "/" + url;
+				},
+				open: function(event, ui) {
+					$(".ui-autocomplete").css("z-index", 1000)
+				}
+			})
 		});
 
 		function updateUpcoming(){
@@ -117,9 +129,9 @@
 			});
 		}
 
-		setInterval(function(){updateUpcoming()}, 1000);
-		setInterval(function(){updateOngoing()}, 1000);
-		setInterval(function(){updateRelease()}, 1000);
+		// setInterval(function(){updateUpcoming()}, 1000);
+		// setInterval(function(){updateOngoing()}, 1000);
+		// setInterval(function(){updateRelease()}, 1000);
 	</script>
 </body>
 </html>

@@ -97,6 +97,12 @@ class All_model extends CI_Model {
 		left join user u on u.id = c.id_user where c.id_project = " . $id . " order by id_comment desc limit 1 ";
 		return $this->db->query($query); 
 	}
+
+	public function getSearchNama($table, $nama){
+		$this->db->like('nama_project', $nama , 'both');
+        $this->db->order_by('nama_project', 'ASC');
+        return $this->db->get($table);
+	}
 }
 
 /* End of file welcome.php */

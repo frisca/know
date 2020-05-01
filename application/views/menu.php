@@ -7,7 +7,7 @@
 	</div>
 	<div class="left-side-inner">
 		<ul class="nav nav-pills nav-stacked custom-nav">
-			<li><a href="<?php echo base_url('user/index')?>"><i class="lnr lnr-magnifier"></i> <span>Search</span></a></li>
+			<!-- <li><a href="<?php echo base_url('user/index')?>"><i class="lnr lnr-magnifier"></i> <span>Search</span></a></li> -->
 		<?php if($this->session->userdata('role') == 1){?>
 			<li><a href="<?php echo base_url('user/index')?>"><i class="lnr lnr-users"></i> <span>User</span></a></li>
 		<?php }else if($this->session->userdata('role') == 2){?>

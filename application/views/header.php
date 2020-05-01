@@ -8,9 +8,9 @@
 <!--notification menu start -->
 <div class="menu-right">
 	<div class="user-panel-top">  	
-		<!-- <div class="profile_details_left">
+		<div class="profile_details_left">
 			<ul class="nofitications-dropdown">
-				<li class="dropdown">
+				<!-- <li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
 					<ul class="dropdown-menu">
 						<li>
@@ -48,24 +48,23 @@
 							</div> 
 						</li>
 					</ul>
-				</li>
+				</li> -->
 				<li class="login_box" id="loginContainer">
 					<div class="search-box">
-						<div id="sb-search" class="sb-search">
+						<div id="sb-search" class="sb-search sb-search-open" style="position:static;">
 							<form>
-								<input class="sb-search-input" placeholder="Enter your search term..." type="search" id="search">
-								<input class="sb-search-submit" type="submit" value="">
-								<span class="sb-icon-search"> </span>
+								<input class="sb-search-input" placeholder="Enter your search project..." type="search" id="search">
+								
 							</form>
 						</div>
 					</div>
-					<script src="js/classie.js"></script>
-					<script src="js/uisearch.js"></script>
+					<!-- <script src="<?php echo base_url('assets/js/classie.js');?>"></script>
+					<script src="<?php echo base_url('assets/js/uisearch.js');?>"></script>
 					<script>
 						new UISearch( document.getElementById( 'sb-search' ) );
-					</script>
+					</script> -->
 				</li>
-				<li class="dropdown">
+				<!-- <li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">3</span></a>
 					<ul class="dropdown-menu">
 						<li>
@@ -155,10 +154,10 @@
 							</div> 
 						</li>
 					</ul>
-				</li>		   							   		
+				</li>		   							   		 -->
 				<div class="clearfix"></div>	
 			</ul>
-		</div> -->
+		</div>
 		<div class="profile_details">		
 			<ul>
 				<li class="dropdown profile_details_drop">
