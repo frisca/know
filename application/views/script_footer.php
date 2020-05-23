@@ -49,7 +49,9 @@
 			$('[data-toggle="tooltip"]').tooltip();
 
 			$("#project").click(function(){
-				if($("#start_date").val() > $("#end_date").val()){
+				var start_date = getDate($('#start_date').val()) ;
+    			var end_date = getDate($('#end_date').val());
+				if(start_date >= end_date){
 					alert('Start date must less than End Date');
 					return false;
 				}
@@ -111,6 +113,12 @@
 			})
 		});
 
+		function getDate(input)
+		{
+		 from = input.split("/");
+		return new Date(from[2], from[1] - 1, from[0]);   
+		}
+
 		function updateUpcoming(){
 			$.getJSON("<?php echo base_url('project/statusUpcoming');?>", function(data){
 				console.log('response: ', data);
@@ -129,9 +137,9 @@
 			});
 		}
 
-		// setInterval(function(){updateUpcoming()}, 1000);
-		// setInterval(function(){updateOngoing()}, 1000);
-		// setInterval(function(){updateRelease()}, 1000);
+		setInterval(function(){updateUpcoming()}, 1000);
+		setInterval(function(){updateOngoing()}, 1000);
+		setInterval(function(){updateRelease()}, 1000);
 	</script>
 </body>
 </html>

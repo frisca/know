@@ -51,7 +51,12 @@
 						  	</div><!--/ media -->
 						</div><!--/ cardbox-heading -->
 						<div class="cardbox-item" style="padding: 15px 50px 25px 17px;border-bottom: 2px solid #f4f4f4;">
-						  <div><?php echo $project->description;?></div>
+						  	<div><?php echo $project->description;?></div>
+						  	<div>
+						  		<a href="<?php echo base_url('project/download/'.$project->id_project);?>">
+									<?php echo $project->files;?>
+								</a>
+							</div>
 						</div>
 						<div class="cardbox-base">
 							<ul>
@@ -64,7 +69,8 @@
 						   		<a href=""><img class="rounded-circle" src="<?php echo base_url('assets/images/10.jpg');?>"></a>                            
 						  	</span>
 						  	<div class="search">
-						   		<input placeholder="Write a comment" type="text" style="width: 1626px;;" id="comments" name="comment">
+						   		<input type="hidden" value="<?php echo $project->id_project;?>" id="projectid">
+						   		<input placeholder="Write a comment" type="text" style="width: 1313px;" id="comments" name="comment">
 						  	</div><!--/. Search -->
 						</div>
 						<div class="subcomment">

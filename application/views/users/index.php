@@ -48,12 +48,12 @@
 									<td><?php echo $value->team;?></td>
 									<td>
 										<a href="<?php echo base_url('user/edit/' . $value->id)?>">
-											<button class="btn btn-warning" type="button">
+											<button class="btn btn-warning" type="button" title="Edit">
 												<i class="lnr lnr-pencil"></i>
 											</button>
 										</a>
 										<a href="<?php echo base_url('user/delete/' . $value->id)?>">
-											<button class="btn btn-danger" type="button" style="padding: 8.5px 12px;">
+											<button class="btn btn-danger" type="button" style="padding: 8.5px 12px;" title="Delete">
 												<i class="lnr lnr-trash"></i>
 											</button>
 										</a>

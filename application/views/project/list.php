@@ -24,7 +24,7 @@
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>
 									<div class="col-xs-7 activity-desc">
 										<h5>
-											<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
+											<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_project;?></a>
 												- 
 											<a href="<?php echo base_url('release/lists/' . $value->release);?>">Release <?php echo $value->release;?></a>
 										</h5>
@@ -40,8 +40,10 @@
 									<div class="col-xs-7 activity-desc">
 										<h5>
 											<a href="<?php echo base_url('product/detail/' . $product->id_product);?>"><?php echo $value->nama_product;?></a>
-												- 
-											<a href="<?php echo base_url('release/lists/x.x');?>">Release X.X</a>
+											- 
+											<a href="<?php echo base_url('release/nonrelease/' . $value->id_project);?>"><?php echo $value->nama_project;?></a>
+												<!-- - 
+											<a href="<?php echo base_url('release/lists/x.x');?>">Release X.X</a> --> 
 										</h5>
 										<p><?php echo $product->description;?></p>
 									</div>

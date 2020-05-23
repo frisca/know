@@ -97,7 +97,7 @@
 					</div>
 				</div>
 			</div>
-            <a href="<?php echo base_url('release/lists/' . $project->release);?>">
+            <a href="<?php echo base_url('project/lists/' . $project->id_product);?>">
                 <button class="btn-default btn" type="button" style="padding: 9.5px 12px;margin-top: 20px;">Back</button>
             </a>
 		</div>

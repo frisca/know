@@ -11,7 +11,7 @@
 			<div class="graphs">
 				<h3 class="blank1">Add Data Project</h3>
 				<div class="panel-body panel-body-inputin">
-					<form role="form" class="form-horizontal" method="post" action="<?php echo base_url('project/processAdd');?>">
+					<form role="form" class="form-horizontal" method="post" action="<?php echo base_url('project/processAdd');?>" enctype="multipart/form-data">
 						<?php if(validation_errors() != ""){?>
 							<div class="alert alert-danger form-group">
 								<button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -48,6 +48,11 @@
 							<label class="control-label" for="inputWarning1">Description</label>
 						    <textarea cols="80" id="edi" name="description" rows="10"></textarea>
 						</div>
+
+						<div class="form-group has-warning">
+					        <label class="control-label" for="inputWarning1">File</label>
+					        <input type="file" class="form-control1 input-lg" placeholder="File ..." name="files">
+					    </div>
 
 						<div class="form-group has-warning">
 							<label class="control-label" for="inputWarning1">Start Date</label>

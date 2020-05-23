@@ -103,6 +103,12 @@ class All_model extends CI_Model {
         $this->db->order_by('nama_project', 'ASC');
         return $this->db->get($table);
 	}
+
+	public function getProjectIdByLimit()
+	{
+		$query = "SELECT * FROM project order by id_project desc limit 1";
+		return $this->db->query($query); 
+	}
 }
 
 /* End of file welcome.php */

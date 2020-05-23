@@ -113,6 +113,13 @@ class Release extends CI_Controller {
 		}
 	}
 
+	public function nonrelease($id){
+		$data['project'] = $this->all_model->getDetailProjectById($id)->row();
+        $data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
+        $data['comment'] = $this->all_model->getCommentByProject($id)->result();
+		$this->load->view('release/nonrelease', $data);
+	}
+
 	public function detail($id){
         $data['project'] = $this->all_model->getDetailProjectById($id)->row();
         $data['count'] = $this->all_model->getCommentByProject($id)->num_rows();

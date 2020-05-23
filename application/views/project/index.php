@@ -13,7 +13,7 @@
 				<div class="xs tabls">
 					<a href="<?php echo base_url('project/add')?>">
 						<?php if($this->session->userdata('role') != 1){ ?>
-							<button class="btn btn-primary" type="button" style="float: right;margin-bottom: 20px;">Tambah</button>
+							<button class="btn btn-primary" type="button" style="float: right;margin-bottom: 20px;">Add</button>
 						<?php } ?>
 					</a>
 					<div class="clearfix"></div>
@@ -79,7 +79,7 @@
 											</button>
 										<?php } ?>
 										<a href="<?php echo base_url('project/views/' . $value->id_project)?>">
-											<button class="btn btn-info" type="button" title="Lihat">
+											<button class="btn btn-info" type="button" title="View">
 												<i class="lnr lnr-eye"></i>
 											</button>
 										</a>
