@@ -33,7 +33,7 @@
 									<div class="clearfix"></div>
 								</div>
 								<?php
-											}else{
+											}else if($value->status == 2 && $value->release == 0){
 								?>
 								<div class="activity-row">
 									<div class="col-xs-3 activity-img"><img src="<?php echo base_url('assets/images/file.png');?>" class="img-responsive" alt=""></div>

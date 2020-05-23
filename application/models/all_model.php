@@ -52,23 +52,23 @@ class All_model extends CI_Model {
 		return $this->db->query($query); 
 	}
 
-	public function updateRelease($date, $updated_date){
-		$query = "update project  p set p.status = 2, p.updated_date = '" . $updated_date . "' where p.end_date = '" . $date . "' and p.start_date != '" . $date . "'";
-		$this->db->query($query);
-		return true;
-	}
+	// public function updateRelease($date, $updated_date){
+	// 	$query = "update project  p set p.status = 2, p.updated_date = '" . $updated_date . "' where p.end_date = '" . $date . "' and p.start_date != '" . $date . "'";
+	// 	$this->db->query($query);
+	// 	return true;
+	// }
 
-	public function updateOngoing($date, $updated_date){
-		$query = "update project  p set p.status = 1, p.updated_date = '" . $updated_date . "' where '" . $date . "' between p.start_date and p.end_date and p.status != 2";
-		$this->db->query($query);
-		return true;
-	}
+	// public function updateOngoing($date, $updated_date){
+	// 	$query = "update project  p set p.status = 1, p.updated_date = '" . $updated_date . "' where '" . $date . "' between p.start_date and p.end_date and p.status != 2";
+	// 	$this->db->query($query);
+	// 	return true;
+	// }
 
-	public function updateUpcoming($date, $updated_date){
-		$query = "update project  p set p.status = 0, p.updated_date = '" . $updated_date . "' where '" . $date . "' not between p.start_date and p.end_date";
-		$this->db->query($query);
-		return true;
-	}
+	// public function updateUpcoming($date, $updated_date){
+	// 	$query = "update project  p set p.status = 0, p.updated_date = '" . $updated_date . "' where '" . $date . "' not between p.start_date and p.end_date";
+	// 	$this->db->query($query);
+	// 	return true;
+	// }
 
 	// public function getReleaseByNotUpdate($date){
 	// 	$query = "select p.* from project p where p.updated_date != '" . $date . "' and status = 2 order by p.updated_date desc limit 1";
@@ -108,6 +108,34 @@ class All_model extends CI_Model {
 	{
 		$query = "SELECT * FROM project order by id_project desc limit 1";
 		return $this->db->query($query); 
+	}
+
+	public function getListProject(){
+		$query = "select * from project order by nama_project asc";
+		return $this->db->query($query);
+	}
+
+	public function getListProduct(){
+		$query = "select * from product order by nama_product asc";
+		return $this->db->query($query);
+	}
+
+	public function updateUpcoming($date){
+		$query = "update project  p set p.status = 0, p.updated_date = '" . $date . "' where p.end_date > '" . $date . "' and p.start_date > '" . $date . "'";
+		$this->db->query($query);
+		return true;
+	}
+
+	public function updateOngoing($date){
+		$query = "update project  p set p.status = 1, p.updated_date = '" . $date . "' where p.end_date > '" . $date . "' and p.start_date < '" . $date . "'";
+		$this->db->query($query);
+		return true;
+	}
+
+	public function updateRelease($date){
+		$query = "update project  p set p.status = 2, p.updated_date = '" . $date . "' where p.end_date <= '" . $date . "' and p.start_date < '" . $date . "'";
+		$this->db->query($query);
+		return true;
 	}
 }
 

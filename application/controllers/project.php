@@ -137,13 +137,28 @@ class Project extends CI_Controller {
 			// }else{
 			// 	$status = 2;
 			// }
-			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
-				$status = 0;
-			}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
-			&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
-				$status = 1;
-			}else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
+			// if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
+			// 	$status = 0;
+			// }else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+			// && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
+			// 	$status = 1;
+			// }else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
+			// 	$status = 2;
+			// }
+
+			if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+			{
 				$status = 2;
+			}
+
+			if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+			{
+				$status = 1;
+			}
+
+			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+			{
+				$status = 0;
 			}
 
 			if(!$_FILES['files']['name']){
@@ -240,13 +255,28 @@ class Project extends CI_Controller {
 			if(!$_FILES['files']['name']){
 				// var_dump(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))));exit();
 				// var_dump(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))));exit();
-				if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
-					$status = 0;
-				}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
-				&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
-					$status = 1;
-				}else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
+				// if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
+				// 	$status = 0;
+				// }else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+				// && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
+				// 	$status = 1;
+				// }else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
+				// 	$status = 2;
+				// }
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+				{
 					$status = 2;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				{
+					$status = 1;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				{
+					$status = 0;
 				}
 
 				$data = array(
@@ -280,13 +310,28 @@ class Project extends CI_Controller {
 				// 	var_dump($status);exit();
 				// }
 
-				if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
-					$status = 0;
-				}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
-				&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
-					$status = 1;
-				}else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
+				// if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
+				// 	$status = 0;
+				// }else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+				// && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
+				// 	$status = 1;
+				// }else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
+				// 	$status = 2;
+				// }
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+				{
 					$status = 2;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				{
+					$status = 1;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				{
+					$status = 0;
 				}
 
 				$project = $this->all_model->getDataByCondition('project', array('id_project'=>$this->input->post('id')))->row();
@@ -333,18 +378,17 @@ class Project extends CI_Controller {
 		$condition = array("id_project" => $id);
 
 		$project = $this->all_model->getDataByCondition('project', $condition)->row();
-		var_dump($project->files);exit();
 
-		// unlink(FCPATH."upload/".$id.'/'.$project->files);
+		unlink(FCPATH."upload/".$id.'/'.$project->files);
 
-		// $res  = $this->all_model->deleteData("project", $condition);
-		// if($res == false){
-		// 	$this->session->set_flashdata('error', 'Data project not deleted');
-		// 	redirect(base_url() . "project/index");
-		// }
+		$res  = $this->all_model->deleteData("project", $condition);
+		if($res == false){
+			$this->session->set_flashdata('error', 'Data project not deleted');
+			redirect(base_url() . "project/index");
+		}
 
-		// $this->session->set_flashdata('success', 'Data project deleted');
-		// redirect(base_url() . "project/index");
+		$this->session->set_flashdata('success', 'Data project deleted');
+		redirect(base_url() . "project/index");
 	}
 
 	public function lists($id){
@@ -368,7 +412,7 @@ class Project extends CI_Controller {
 	}
 
 	public function statusOngoing(){
-		$res = $this->all_model->updateOngoing(date('Y-m-d'), date('Y-m-d')) ;
+		$res = $this->all_model->updateOngoing(date('Y-m-d')) ;
 		if($res == true){
 			$data = 'Berhasil';
 			echo json_encode($data);
@@ -379,7 +423,7 @@ class Project extends CI_Controller {
 	}
 
 	public function statusUpcoming(){
-		$res = $this->all_model->updateUpcoming(date('Y-m-d'), date('Y-m-d'));
+		$res = $this->all_model->updateUpcoming(date('Y-m-d'));
 		if($res == true){
 			$data = 'Berhasil';
 			echo json_encode($data);
@@ -390,7 +434,7 @@ class Project extends CI_Controller {
 	}
 
 	public function statusRelease(){
-		$res = $this->all_model->updateRelease(date('Y-m-d'), date('Y-m-d'));
+		$res = $this->all_model->updateRelease(date('Y-m-d'));
 		if($res == true){
 			$data = 'Berhasil';
 			echo json_encode($data);

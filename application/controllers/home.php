@@ -13,7 +13,7 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$data['product'] = $this->all_model->getAllData('product')->result();
+		$data['product'] = $this->all_model->getListProduct()->result();
 		$this->load->view('index', $data);
 	}
 }
