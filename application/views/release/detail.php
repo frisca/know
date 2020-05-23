@@ -83,7 +83,7 @@
 									      <img src="<?php echo base_url('assets/images/10.jpg');?>" style="width:40px">
 									    </div>
 									    <div class="media-body">
-									      <h4 class="media-heading title"><?php echo $value->username;?></h4>
+									      <h4 class="media-heading title"><?php echo $value->nama;?></h4>
 									      <p class="komen">
 									          <?php echo $value->comment;?>
 									      </p>

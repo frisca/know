@@ -127,7 +127,7 @@ class All_model extends CI_Model {
 	}
 
 	public function updateOngoing($date){
-		$query = "update project  p set p.status = 1, p.updated_date = '" . $date . "' where p.end_date > '" . $date . "' and p.start_date < '" . $date . "'";
+		$query = "update project  p set p.status = 1, p.updated_date = '" . $date . "' where p.end_date > '" . $date . "' and p.start_date <= '" . $date . "'";
 		$this->db->query($query);
 		return true;
 	}

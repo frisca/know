@@ -151,19 +151,19 @@ class Project extends CI_Controller {
 			// }
 
 			date_default_timezone_set("Asia/Jakarta");
-			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+			if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
 			{
-				$status = 0;
+				$status = 2;
 			}
 
-			else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+			if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
 			{
 				$status = 1;
 			}
 
-			else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
 			{
-				$status = 2;
+				$status = 0;
 			}
 			
 			if(!$_FILES['files']['name']){
@@ -271,12 +271,12 @@ class Project extends CI_Controller {
 				// 	$status = 2;
 				// }
 				date_default_timezone_set("Asia/Jakarta");
-				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
 				{
 					$status = 2;
 				}
 
-				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
 				{
 					$status = 1;
 				}
@@ -326,12 +326,12 @@ class Project extends CI_Controller {
 				// 	$status = 2;
 				// }
 				date_default_timezone_set("Asia/Jakarta");
-				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
 				{
 					$status = 2;
 				}
 
-				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
 				{
 					$status = 1;
 				}
@@ -340,7 +340,6 @@ class Project extends CI_Controller {
 				{
 					$status = 0;
 				}
-
 				$project = $this->all_model->getDataByCondition('project', array('id_project'=>$this->input->post('id')))->row();
 
 				unlink(FCPATH."upload/".$this->input->post('id').'/'.$project->files);
