@@ -77,7 +77,7 @@
 					if(comment != ""){
 						$.post( "<?php echo base_url('comment/insertComment');?>", { comment: comment, idUser : idUser, idProject : idProject }, function(data){
 							console.log('response: ', data);
-							$('.subcomment').prepend('<div class="geser"' + 
+							$('.subcomment').append('<div class="geser"' + 
 								'style="margin-left: 100px;margin-top: -4px;">' +
 								'<div class="media" style="padding-bottom: 5px;">' +
 									'<div class="media-left">' +

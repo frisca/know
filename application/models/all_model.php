@@ -42,7 +42,7 @@ class All_model extends CI_Model {
 	{
 		$query = "SELECT c.*, p.*, u.*, pr.* FROM comment c LEFT join project p on p.id_project = c.id_project 
 		left join user u on u.id = c.id_user left join product pr on pr.id_product = p.id_product 
-		where c.id_project = " . $id . " order by id_comment desc";
+		where c.id_project = " . $id . " order by id_comment asc";
 		return $this->db->query($query); 
 	}
 

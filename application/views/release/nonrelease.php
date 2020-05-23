@@ -33,8 +33,8 @@
 										<em class="fa fa-ellipsis-h"></em>
 									</button>
 									<div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-										<a class="dropdown-item" href="<?php echo base_url('release/edit/' . $project->id_project);?>">Edit</a>
-										<a class="dropdown-item" href="<?php echo base_url('release/delete/' . $project->id_project);?>">Delete</a>
+										<a class="dropdown-item" href="<?php echo base_url('release/nonreleaseedit/' . $project->id_project);?>">Edit</a>
+										<a class="dropdown-item" href="<?php echo base_url('release/nonreleasedelete/' . $project->id_project);?>">Delete</a>
 									</div>
 								</div><!--/ dropdown -->
 							<?php } ?>
@@ -83,7 +83,7 @@
 									      <img src="<?php echo base_url('assets/images/10.jpg');?>" style="width:40px">
 									    </div>
 									    <div class="media-body">
-									      <h4 class="media-heading title"><?php echo $value->username;?></h4>
+									      <h4 class="media-heading title"><?php echo $value->nama;?></h4>
 									      <p class="komen">
 									          <?php echo $value->comment;?>
 									      </p>

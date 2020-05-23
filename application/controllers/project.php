@@ -104,6 +104,8 @@ class Project extends CI_Controller {
 
 	public function index()
 	{
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$data['project'] = $this->all_model->getAllData('project')->result();
 		$this->load->view('project/index', $data);
 	}
@@ -115,7 +117,9 @@ class Project extends CI_Controller {
  
  		//Add Ckfinder to Ckeditor
 		$this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/ckfinder/');
-		$data['product'] = $this->all_model->getAllData('product')->result();  
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
+		$data['product'] = $this->all_model->getListProduct()->result();  
 		$this->load->view('project/add', $data);
 	}
 
@@ -146,21 +150,22 @@ class Project extends CI_Controller {
 			// 	$status = 2;
 			// }
 
-			if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
-			{
-				$status = 2;
-			}
-
-			if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
-			{
-				$status = 1;
-			}
-
+			date_default_timezone_set("Asia/Jakarta");
 			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
 			{
 				$status = 0;
 			}
 
+			else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+			{
+				$status = 1;
+			}
+
+			else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
+			{
+				$status = 2;
+			}
+			
 			if(!$_FILES['files']['name']){
 				$data = array(
 					'id_product' => $this->input->post('id_product'),
@@ -205,7 +210,7 @@ class Project extends CI_Controller {
 				}
 
 				$config['upload_path']  = './upload/' . $res_project->id_project;
-				$config['allowed_types']    = 'pdf|docs|doc|xlsx';
+				$config['allowed_types']    = 'pdf|docs|doc|xlsx|jpg|jpeg|png|gif|docx';
 
 				$this->load->library('upload', $config);
  
@@ -235,8 +240,10 @@ class Project extends CI_Controller {
  		//Add Ckfinder to Ckeditor
 		$this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/ckfinder/');
 		$condition = array('id_project' => $id);
-		$data['product'] = $this->all_model->getAllData('product')->result();  
+		$data['product'] = $this->all_model->getListProduct()->result();   
 		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('project/edit', $data);
 	}
 
@@ -263,7 +270,7 @@ class Project extends CI_Controller {
 				// }else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
 				// 	$status = 2;
 				// }
-
+				date_default_timezone_set("Asia/Jakarta");
 				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
 				{
 					$status = 2;
@@ -318,7 +325,7 @@ class Project extends CI_Controller {
 				// }else if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d')){
 				// 	$status = 2;
 				// }
-
+				date_default_timezone_set("Asia/Jakarta");
 				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) < date('Y-m-d'))
 				{
 					$status = 2;
@@ -343,7 +350,7 @@ class Project extends CI_Controller {
 				}
 
 				$config['upload_path']  = './upload/' . $this->input->post('id');
-				$config['allowed_types']    = 'pdf|docs|doc|xlsx';
+				$config['allowed_types']    = 'pdf|docs|doc|xlsx|jpg|jpeg|png|gif|docx';
 
 				$this->load->library('upload', $config);
 
@@ -395,6 +402,8 @@ class Project extends CI_Controller {
 		$condition = array("id_product" => $id);
 		$data['product'] = $this->all_model->getDataByCondition('product', $condition)->row();
 		$data['project'] = $this->all_model->getProductById($id)->result();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		// var_dump($data['project']);exit();
 		$this->load->view('project/list', $data);
 	}
@@ -412,6 +421,7 @@ class Project extends CI_Controller {
 	}
 
 	public function statusOngoing(){
+		date_default_timezone_set("Asia/Jakarta");
 		$res = $this->all_model->updateOngoing(date('Y-m-d')) ;
 		if($res == true){
 			$data = 'Berhasil';
@@ -423,6 +433,7 @@ class Project extends CI_Controller {
 	}
 
 	public function statusUpcoming(){
+		date_default_timezone_set("Asia/Jakarta");
 		$res = $this->all_model->updateUpcoming(date('Y-m-d'));
 		if($res == true){
 			$data = 'Berhasil';
@@ -434,6 +445,7 @@ class Project extends CI_Controller {
 	}
 
 	public function statusRelease(){
+		date_default_timezone_set("Asia/Jakarta");
 		$res = $this->all_model->updateRelease(date('Y-m-d'));
 		if($res == true){
 			$data = 'Berhasil';
@@ -481,6 +493,8 @@ class Project extends CI_Controller {
 		$condition = array('id_project' => $id);
 		$data['product'] = $this->all_model->getAllData('product')->result();  
 		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('project/view', $data);
 	}
 

@@ -15,6 +15,8 @@ class Profile extends CI_Controller {
 	{
 		$condition = array('id' => $this->session->userdata('id'));
 		$data['profile'] = $this->all_model->getDataByCondition('user', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('profile/index', $data);
 	}
 
@@ -22,6 +24,8 @@ class Profile extends CI_Controller {
 	{
 		$condition = array('id' => $this->session->userdata('id'));
 		$data['profile'] = $this->all_model->getDataByCondition('user', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('profile/edit', $data);
 	}
 
@@ -68,7 +72,9 @@ class Profile extends CI_Controller {
 	}
 
 	public function changePassword(){
-		$this->load->view('profile/change_password');
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
+		$this->load->view('profile/change_password', $data);
 	}
 
 	public function processChangePassword(){

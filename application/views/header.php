@@ -166,15 +166,15 @@
 							<span style="background:url(<?php echo base_url('assets/images/1.jpg');?>) no-repeat center"> </span> 
 								<?php if($this->session->userdata('role') == 1){?>
 								<div class="user-name">
-									<p><?php echo $this->session->userdata('username');?><span>Administrator</span></p>
+									<p><?php echo $nama;?><span>Administrator</span></p>
 								</div>
 								<?php }else if($this->session->userdata('role') == 2){?>
 								<div class="user-name">
-									<p><?php echo $this->session->userdata('username');?><span>Supervisor</span></p>
+									<p><?php echo $nama;?><span>Supervisor</span></p>
 								</div>
 								<?php }else{ ?>
 								<div class="user-name">
-									<p><?php echo $this->session->userdata('username');?><span>Staff</span></p>
+									<p><?php echo $nama;?><span>Staff</span></p>
 								</div>
 								<?php } ?>
 								<i class="lnr lnr-chevron-down"></i>

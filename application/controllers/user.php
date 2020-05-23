@@ -13,12 +13,16 @@ class User extends CI_Controller {
 
 	public function index()
 	{
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$data['user'] = $this->all_model->getAllData('user')->result();
 		$this->load->view('users/index', $data);
 	}
 
 	public function add(){
-		$this->load->view('users/add');
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
+		$this->load->view('users/add', $data);
 	}
 
 	public function processAdd(){
@@ -63,6 +67,9 @@ class User extends CI_Controller {
 	public function edit($id){
 		$condition = array("id" => $id);
 		$data['user'] = $this->all_model->getDataByCondition('user', $condition)->row();
+
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('users/edit', $data);
 	}
 

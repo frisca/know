@@ -1765,11 +1765,16 @@ ul.dropdown-menu.drp-mnu li a i {
     padding: 0;
 }
 .user-name{
-	 float:left;
+	 /*float:left;
 	 margin-top:8px;
 	 margin-left:5px;
 	 height:35px;
-	 width:45%;
+	 width:45%;*/
+	float: left;
+    margin-top: 8px;
+    margin-left: 0px;
+    height: 35px;
+    width: 71%;
 }
 .profile_details ul li{
 	list-style-type:none;

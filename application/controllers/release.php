@@ -105,15 +105,21 @@ class Release extends CI_Controller {
 		if($id != 'x.x'){
 			$condition = array('release' => $id);
 			$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
+			$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+			$data['nama'] = $profile->nama;
 			$this->load->view('release/list', $data);
 		}else{
 			$condition = array('release' => null);
 			$data['project'] = $this->all_model->getDataByCondition('project', $condition)->result();
+			$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+			$data['nama'] = $profile->nama;
 			$this->load->view('release/list', $data);
 		}
 	}
 
 	public function nonrelease($id){
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$data['project'] = $this->all_model->getDetailProjectById($id)->row();
         $data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
         $data['comment'] = $this->all_model->getCommentByProject($id)->result();
@@ -121,6 +127,8 @@ class Release extends CI_Controller {
 	}
 
 	public function detail($id){
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
         $data['project'] = $this->all_model->getDetailProjectById($id)->row();
         $data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
         $data['comment'] = $this->all_model->getCommentByProject($id)->result();
@@ -137,7 +145,65 @@ class Release extends CI_Controller {
 		$condition = array('id_project' => $id);
 		$data['product'] = $this->all_model->getAllData('product')->result();  
 		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('release/edit', $data);
+    }
+
+    public function nonreleaseedit($id)
+	{
+		$this->load->library('CKEditor');
+ 		$this->load->library('CKFinder');
+ 
+ 		//Add Ckfinder to Ckeditor
+		$this->ckfinder->SetupCKEditor($this->ckeditor,'../../assets/ckfinder/');
+		$condition = array('id_project' => $id);
+		$data['product'] = $this->all_model->getAllData('product')->result();  
+		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
+		$this->load->view('release/nonreleaseedit', $data);
+    }
+
+    public function processNonreleaseedit(){
+        $condition = array('id_project' => $this->input->post('id'));
+        $this->form_validation->set_rules('id_product', 'Product', 'required');
+        $this->form_validation->set_rules('title', 'Judul', 'required');
+        $this->form_validation->set_rules('description', 'Deskripsi', 'required');
+        $this->form_validation->set_rules('start_date', 'Dari Tanggal', 'required');
+        $this->form_validation->set_rules('end_date', 'Sampai Tanggal', 'required');
+
+        if($this->form_validation->run() == false){
+            $this->load->view('project/editComment');
+        }else{
+            if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
+                $status = 0;
+            }else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
+            && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
+                $status = 1;
+            }else{
+                $status = 2;
+            }
+
+            $data = array(
+                'id_product' => $this->input->post('id_product'),
+                'nama_project' => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
+                'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
+                'status'   => $status,
+                'updated_date' => date('Y-m-d')
+            );
+
+            $res = $this->all_model->updateData('project', $condition, $data);
+            if($res == false){
+                $this->session->set_flashdata('error', 'Data project not updated');
+                redirect(base_url() . 'release/nonreleaseedit/' . $this->input->post('id'));
+            }
+
+            $this->session->set_flashdata('success', 'Data project updated');
+            redirect(base_url() . 'release/nonrelease/' . $this->input->post('id'));
+        }
     }
     
     public function processEdit(){
@@ -195,5 +261,21 @@ class Release extends CI_Controller {
     	$res = $this->all_model->deleteData('project', $condition);
     	$this->session->set_flashdata('success', 'Data project deleted');
     	redirect(base_url() . 'release/lists/' . $release);
+    }
+
+    public function nonreleasedelete($id){
+    	$condition = array('id_project' => $id);
+    	$project = $this->all_model->getDataByCondition('project', $condition)->row();
+    	$release = $project->release;
+
+    	$comment = $this->all_model->deleteData('comment', $condition);
+    	if($comment == false){
+    		$this->session->set_flashdata('error', 'Data project not deleted');
+    		redirect(base_url() . 'release/nonrelease/' . $id);
+    	}
+
+    	$res = $this->all_model->deleteData('project', $condition);
+    	$this->session->set_flashdata('success', 'Data project deleted');
+    	redirect(base_url() . 'project/lists/' . $project->id_product);
     }
 }

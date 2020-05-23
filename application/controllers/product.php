@@ -13,13 +13,17 @@ class Product extends CI_Controller {
 
 	public function index()
 	{
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$data['product'] = $this->all_model->getAllData('product')->result();
 		$this->load->view('product/index', $data);
 	}
 
 	public function add()
 	{
-		$this->load->view('product/add');
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
+		$this->load->view('product/add', $data);
 	}
 
 	public function processAdd(){
@@ -48,12 +52,16 @@ class Product extends CI_Controller {
 	public function edit($id){
 		$condition = array("id_product" => $id);
 		$data['product'] = $this->all_model->getDataByCondition('product', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('product/edit', $data);
 	}
 
 	public function detail($id){
 		$condition = array("id_product" => $id);
 		$data['product'] = $this->all_model->getDataByCondition('product', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('product/detail', $data);
 	}
 

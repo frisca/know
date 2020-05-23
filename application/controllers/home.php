@@ -13,7 +13,9 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
 		$data['product'] = $this->all_model->getListProduct()->result();
+		$data['nama'] = $profile->nama;
 		$this->load->view('index', $data);
 	}
 }

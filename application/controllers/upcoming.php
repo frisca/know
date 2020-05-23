@@ -102,6 +102,8 @@ class Upcoming extends CI_Controller {
 	}
 
 	public function detail($id){
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$data['project'] = $this->all_model->getDetailProjectById($id)->row();
 		$data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
 		$data['comment'] = $this->all_model->getCommentByProject($id)->result();
@@ -118,6 +120,8 @@ class Upcoming extends CI_Controller {
 		$condition = array('id_project' => $id);
 		$data['product'] = $this->all_model->getAllData('product')->result();  
 		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
+		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
+		$data['nama'] = $profile->nama;
 		$this->load->view('upcoming/edit', $data);
 	}
 
