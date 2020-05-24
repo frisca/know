@@ -257,7 +257,7 @@ class Project extends CI_Controller {
 		$this->form_validation->set_rules('end_date', 'Sampai Tanggal', 'required');
 
 		if($this->form_validation->run() == false){
-			$this->load->view('project/edit');
+			$this->load->view('project/edit/' . $this->input->post('id'));
 		}else{
 			if(!$_FILES['files']['name']){
 				// var_dump(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))));exit();

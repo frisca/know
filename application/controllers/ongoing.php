@@ -134,35 +134,95 @@ class Ongoing extends CI_Controller {
 		$this->form_validation->set_rules('end_date', 'Sampai Tanggal', 'required');
 
 		if($this->form_validation->run() == false){
-			$this->load->view('ongoing/editComment');
+			$this->load->view('ongoing/edit/' . $this->input->post('id'));
 		}else{
-			if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d')){
-				$status = 0;
-			}else if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d')
-			&& date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) < date('Y-m-d')){
-				$status = 1;
+			if(!$_FILES['files']['name']){
+				date_default_timezone_set("Asia/Jakarta");
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
+				{
+					$status = 2;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
+				{
+					$status = 1;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				{
+					$status = 0;
+				}
+
+				$data = array(
+					'id_product' => $this->input->post('id_product'),
+					'nama_project' => $this->input->post('title'),
+					'description' => $this->input->post('description'),
+					'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
+					'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
+					'status'   => $status,
+					'updated_date' => date('Y-m-d')
+				);
+				$res = $this->all_model->updateData('project', $condition, $data);
+				if($res == false){
+					$this->session->set_flashdata('error', 'Data project not saved');
+					redirect(base_url() . 'ongoing/edit/' . $this->input->post('id'));
+				}
+
+				$this->session->set_flashdata('success', 'Data project saved');
+				redirect(base_url() . 'ongoing/detail/' . $this->input->post('id'));
 			}else{
-				$status = 2;
+				date_default_timezone_set("Asia/Jakarta");
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) <= date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
+				{
+					$status = 2;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) <= date('Y-m-d'))
+				{
+					$status = 1;
+				}
+
+				if(date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))) > date('Y-m-d') && date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))) > date('Y-m-d'))
+				{
+					$status = 0;
+				}
+				$project = $this->all_model->getDataByCondition('project', array('id_project'=>$this->input->post('id')))->row();
+
+				unlink(FCPATH."upload/".$this->input->post('id').'/'.$project->files);
+
+				if (!is_dir('./upload/'.$this->input->post('id'))) {
+				    mkdir('./upload/' . $this->input->post('id'), 0777, TRUE);
+				}
+
+				$config['upload_path']  = './upload/' . $this->input->post('id');
+				$config['allowed_types']    = 'pdf|docs|doc|xlsx|jpg|jpeg|png|gif|docx';
+
+				$this->load->library('upload', $config);
+
+				$data = array(
+					'id_product' => $this->input->post('id_product'),
+					'nama_project' => $this->input->post('title'),
+					'description' => $this->input->post('description'),
+					'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
+					'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
+					'status'   => $status,
+					'updated_date' => date('Y-m-d'),
+					'files' => $_FILES['files']['name']
+				);
+				if ( ! $this->upload->do_upload('files')){
+					$this->session->set_flashdata('error', 'Data project not updated');
+					redirect(base_url() . 'ongoing/edit/' . $this->input->post('id'));
+				}else{
+					$con = array('id_project' => $this->input->post('id'));
+					$res_upload = $this->all_model->updateData('project', $con, $data);
+					if($res_upload == false){
+						$this->session->set_flashdata('error', 'Data project not updated');
+						redirect(base_url() . 'ongoing/edit/' . $this->input->post('id'));
+					}
+					$this->session->set_flashdata('success', 'Data project updated');
+					redirect(base_url() . 'ongoing/detail/' . $this->input->post('id'));
+				}
 			}
-
-			$data = array(
-				'id_product' => $this->input->post('id_product'),
-				'nama_project' => $this->input->post('title'),
-				'description' => $this->input->post('description'),
-				'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
-				'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
-				'status'   => $status,
-				'updated_date' => date('Y-m-d')
-			);
-
-			$res = $this->all_model->updateData('project', $condition, $data);
-			if($res == false){
-				$this->session->set_flashdata('error', 'Data project not saved');
-				redirect(base_url() . 'ongoing/edit/' . $this->input->post('id'));
-			}
-
-			$this->session->set_flashdata('success', 'Data project saved');
-			redirect(base_url() . 'ongoing/detail/' . $this->input->post('id'));
 		}
 	}
 
