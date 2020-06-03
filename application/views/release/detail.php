@@ -27,7 +27,7 @@
 					<div class="cardbox shadow-lg bg-white" style="box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;    background-color: #fff!important;">
 						<div class="cardbox-heading" style="border-bottom: 2px solid #f4f4f4;">
 						  	<!-- START dropdown-->
-							<?php if($project->created_by == $this->session->userdata('id')){?>
+							<?php if($project->created_by == $this->session->userdata('id') && $this->session->userdata('role') != 1){?>
 								<div class="dropdown float-right">
 									<button class="btn btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
 										<em class="fa fa-ellipsis-h"></em>
@@ -64,6 +64,9 @@
 							   <li><a><em class="mr-5"><?php echo $count;?></em></a></li>
 						  	</ul>			   
 						</div>
+						<?php 
+						  if($this->session->userdata('role') != 1){
+						?>
 						<div class="cardbox-comments">
 						  	<span class="comment-avatar float-left" style="width: 4%;">
 						   		<a href=""><img class="rounded-circle" src="<?php echo base_url('assets/images/10.jpg');?>"></a>                            
@@ -94,6 +97,33 @@
 								}
 							?>
 						</div>
+						<?php
+							}else{
+						?>
+						<div class="subcomment" style="margin-top: 20px;margin-left: -64px;">
+							<?php 
+								foreach($comment as $key=>$value){
+							?>
+								<div class="geser" style="margin-left: 100px;margin-top: -4px;">
+								 	<div class="media" style="padding-bottom: 5px;">
+									    <div class="media-left">
+									      <img src="<?php echo base_url('assets/images/10.jpg');?>" style="width:40px">
+									    </div>
+									    <div class="media-body">
+									      <h4 class="media-heading title"><?php echo $value->nama;?></h4>
+									      <p class="komen">
+									          <?php echo $value->comment;?>
+									      </p>
+									    </div>
+									</div>
+								</div>
+							<?php
+								}
+							?>
+						</div>
+						<?php
+							}
+						?>
 					</div>
 				</div>
 			</div>
