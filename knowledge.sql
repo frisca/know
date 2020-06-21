@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2020 at 10:32 AM
+-- Generation Time: Jun 21, 2020 at 03:25 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 5.6.36
 
@@ -45,7 +45,22 @@ INSERT INTO `comment` (`id_comment`, `id_project`, `comment`, `id_user`, `create
 (1, 0, 'testing', 4, '2020-05-20', '0000-00-00'),
 (2, 23, 'test', 4, '2020-05-20', '0000-00-00'),
 (3, 0, 'test', 3, '2020-05-23', '0000-00-00'),
-(4, 0, '0', 0, '2020-05-23', '0000-00-00');
+(4, 0, '0', 0, '2020-05-23', '0000-00-00'),
+(5, 31, 'test', 3, '2020-05-23', '0000-00-00'),
+(6, 31, 'comment', 3, '2020-05-23', '0000-00-00'),
+(7, 31, 'loh kok', 3, '2020-05-23', '0000-00-00'),
+(8, 31, 'satu', 3, '2020-05-23', '0000-00-00'),
+(9, 31, 'dua', 3, '2020-05-23', '0000-00-00'),
+(10, 31, 'tiga', 3, '2020-05-23', '0000-00-00'),
+(11, 31, 'test satu', 4, '2020-05-23', '0000-00-00'),
+(12, 31, 'test dua', 4, '2020-05-23', '0000-00-00'),
+(13, 33, 'satu', 4, '2020-05-23', '0000-00-00'),
+(14, 33, 'dua', 4, '2020-05-23', '0000-00-00'),
+(15, 33, 'tiga', 4, '2020-05-23', '0000-00-00'),
+(16, 33, 'empat', 4, '2020-05-23', '0000-00-00'),
+(17, 33, 'hi', 1, '2020-05-23', '0000-00-00'),
+(18, 33, 'nyoba', 4, '2020-05-23', '0000-00-00'),
+(19, 33, 'aja', 3, '2020-05-23', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -66,11 +81,11 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `nama_product`, `created_date`, `updated_date`, `description`) VALUES
-(1, 'Hotel', '2020-03-27', '0000-00-00', 'Product ini mengenai tempat hotel yang disediakan oleh sistem.'),
-(2, 'Tiket Pesawat', '2020-03-28', '0000-00-00', 'Product ini mengenai pembuatan untuk sistem website atau aplikasi penjualan tiket pesawat.'),
-(3, 'Hotel1', '2020-04-26', '0000-00-00', 'testing'),
-(4, 'Hotel3', '2020-04-26', '0000-00-00', 'testing'),
-(5, 'Hotel4', '2020-04-26', '0000-00-00', 'Hotel4');
+(1, 'MOTORCYCLE', '2020-03-27', '2020-05-23', '---Brief descriptions about the product---'),
+(2, 'LIFE', '2020-03-28', '2020-05-23', '---Brief descriptions about the product---'),
+(4, 'MAID', '2020-04-26', '2020-05-23', '---Brief descriptions about the product---'),
+(5, 'CAR', '2020-04-26', '2020-05-23', '---Brief descriptions about the product---'),
+(6, 'TRAVEL', '2020-05-23', '2020-05-23', '---Brief descriptions about the product---');
 
 -- --------------------------------------------------------
 
@@ -98,10 +113,12 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id_project`, `nama_project`, `description`, `id_product`, `start_date`, `end_date`, `created_date`, `updated_date`, `status`, `release`, `created_by`, `files`) VALUES
-(23, 'test', '<p>tste</p>\r\n', 1, '2020-05-20', '2020-06-06', '2020-05-20', '2020-05-23', 1, NULL, 3, '3-5-1-SM.pdf'),
-(28, 'test123', '<p>test</p>\r\n', 1, '2020-05-21', '2020-05-29', '2020-05-20', '2020-05-23', 1, NULL, 4, ''),
-(29, 'test123', '<p>testing</p>\r\n', 1, '2020-05-23', '2020-06-06', '2020-05-23', '2020-05-23', 1, NULL, 3, ''),
-(30, 'Pesawat2', '<p>testung</p>\r\n', 1, '2020-05-23', '2020-06-05', '2020-05-23', '2020-05-23', 1, NULL, 3, '30-90-1-SM.pdf');
+(30, 'Title 1', '<p>testung alala gh</p>\n', 1, '2020-03-01', '2020-04-22', '2020-05-23', '2020-06-04', 2, NULL, 3, '30-90-1-SM.pdf'),
+(31, 'Title 2', '<p style=\"text-align:justify\">In Singapore, FWD aims to change the way people feel about insurance by leveraging technology to deliver products that are relevant, easy to understand and well-priced. Our portfolio includes group insurance and a direct-to-consumer business focusing on life and general insurance.</p>\n\n<p style=\"text-align:justify\">Our group insurance business provides companies with cost-effective employee benefit solutions to over 80,000 members. We are the fifth largest group medical insurer in Singapore with a strong track record across a diverse range of industries. FWD will continue to expand its footprint and reach to corporations in Singapore with a focus on offering customers a differentiated client experience through a robust medical network and excellent service levels.</p>\n\n<p style=\"text-align:justify\">Our direct-to-consumer business provides life and general insurance for individuals. At FWD, we believe that insurance doesn&rsquo;t need to be complex, sold through expensive middlemen, or take up vast amounts of your time.</p>\n\n<p style=\"text-align:justify\">A customer-led brand, we are constantly developing new products for individuals and businesses alike, with the aim to help our customers embrace and celebrate every day, and feel safe and secure knowing that FWD has their back if something unexpected happens</p>\n', 1, '2020-02-17', '2020-04-15', '2020-05-23', '2020-06-04', 2, '1.0', 4, ''),
+(32, 'Title 3', '<p>kkasbfkadbkfbad</p>\n', 2, '2020-04-29', '2020-05-02', '2020-05-23', '2020-06-04', 2, NULL, 3, ''),
+(33, 'Title 4', '<p>stesting title 4<br />\r\n<br />\r\n&nbsp;</p>\r\n\r\n<p>In Singapore, FWD aims to change the way people feel about insurance by leveraging technology to deliver products that are relevant, easy to understand and well-priced. Our portfolio includes group insurance and a direct-to-consumer business focusing on life and general insurance.</p>\r\n\r\n<p>Our group insurance business provides companies with cost-effective employee benefit solutions to over 80,000 members. We are the fifth largest group medical insurer in Singapore with a strong track record across a diverse range of industries. FWD will continue to expand its footprint and reach to corporations in Singapore with a focus on offering customers a differentiated client experience through a robust medical network and excellent service levels.</p>\r\n\r\n<p>Our direct-to-consumer business provides life and general insurance for individuals. At FWD, we believe that insurance doesn&rsquo;t need to be complex, sold through expensive middlemen, or take up vast amounts of your time.</p>\r\n\r\n<p>A customer-led brand, we are constantly developing new products for individuals and businesses alike, with the aim to help our customers embrace and celebrate every day, and feel safe and secure knowing that FWD has their back if something unexpected happens.</p>\r\n', 5, '2020-05-01', '2020-05-30', '2020-05-23', '2020-06-04', 2, NULL, 4, '26-Article Text-60-1-10-20171129.pdf'),
+(36, 'Title 4', '<p>lalaalla</p>\n', 5, '2020-05-24', '2020-06-06', '2020-05-23', '2020-06-04', 1, NULL, 4, ''),
+(39, 'Title 5', '<p>Title 5</p>\r\n', 5, '2020-05-01', '2020-05-30', '2020-05-24', '2020-06-04', 2, NULL, 3, '47-95-1-PB.pdf');
 
 -- --------------------------------------------------------
 
@@ -127,9 +144,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `nama`, `email`, `team`, `position`, `role`, `created_date`, `updated_date`) VALUES
-(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin1', 'admin@gmail.com', 'IT', 'Admin', 1, '2020-01-26', '2020-02-20'),
-(3, 'staff', 'e10adc3949ba59abbe56e057f20f883e', 'stafff', 'staff@gmail.com', 'IT', 'Non Supervisor', 3, '2020-02-27', '2020-04-29'),
-(4, 'supervisor', '827ccb0eea8a706c4c34a16891f84e7b', 'supervisor', 'supervisor@gmail.com', 'IT', 'Supervisor', 2, '2020-03-23', NULL);
+(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Tejo', 'admin@gmail.com', 'IT', 'Admin', 1, '2020-01-26', '2020-05-23'),
+(3, 'staff', '827ccb0eea8a706c4c34a16891f84e7b', 'lina', 'staff@gmail.com', 'IT', 'Non Supervisor', 3, '2020-02-27', '2020-05-23'),
+(4, 'supervisor', '827ccb0eea8a706c4c34a16891f84e7b', 'Manik', 'supervisor@gmail.com', 'IT', 'Supervisor', 2, '2020-03-23', '2020-05-23');
 
 --
 -- Indexes for dumped tables
@@ -167,19 +184,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id_comment` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_comment` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_product` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `project`
 --
 ALTER TABLE `project`
-  MODIFY `id_project` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_project` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `user`
