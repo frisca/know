@@ -238,9 +238,9 @@
 			});
 		}
 
-		// setInterval(function(){updateUpcoming()}, 1000);
-		// setInterval(function(){updateOngoing()}, 1000);
-		// setInterval(function(){updateRelease()}, 1000);
+		setInterval(function(){updateUpcoming()}, 1000);
+		setInterval(function(){updateOngoing()}, 1000);
+		setInterval(function(){updateRelease()}, 1000);
 	</script>
 </body>
 </html>
