@@ -28,4 +28,37 @@ class Comment extends CI_Controller {
             echo json_encode($data);
         }
     }
+
+    public function editComment(){
+        $data = array(
+            'comment' => $this->input->post('comment')
+        );
+
+        $con = array(
+            'id_comment' => $this->input->post('idComment')
+        );
+
+        $res = $this->all_model->updateData('comment', $con, $data);
+        if($res == true){
+            echo json_encode($data);
+        }else{
+            $data = 10;
+            echo json_encode($data);
+        }
+    }
+
+    public function deleteComment(){
+        $con = array(
+            'id_comment' => $this->input->post('idComment')
+        );
+
+        $res = $this->all_model->deleteData('comment', $con);
+        if($res == true){
+            $data = true;
+            echo json_encode($data);
+        }else{
+            $data = 10;
+            echo json_encode($data);
+        }
+    }
 }

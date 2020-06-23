@@ -27,17 +27,6 @@
 					<div class="cardbox shadow-lg bg-white" style="box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;    background-color: #fff!important;">
 						<div class="cardbox-heading" style="border-bottom: 2px solid #f4f4f4;">
 						  	<!-- START dropdown-->
-							<?php if($project->created_by == $this->session->userdata('id') && $this->session->userdata('role') != 1){?>
-								<div class="dropdown float-right">
-									<button class="btn btn-flat btn-flat-icon" type="button" data-toggle="dropdown" aria-expanded="false">
-										<em class="fa fa-ellipsis-h"></em>
-									</button>
-									<div class="dropdown-menu dropdown-scale dropdown-menu-right" role="menu" style="position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-										<a class="dropdown-item" href="<?php echo base_url('release/nonreleaseedit/' . $project->id_project);?>">Edit</a>
-										<a class="dropdown-item" href="<?php echo base_url('release/nonreleasedelete/' . $project->id_project);?>">Delete</a>
-									</div>
-								</div><!--/ dropdown -->
-							<?php } ?>
 						  	<div class="media m-0" style="margin: 0!important;">
 						   		<div class="d-flex mr-3">
 									<a href="">
@@ -90,7 +79,23 @@
 									      <p class="komen">
 									          <?php echo $value->comment;?>
 									      </p>
-									    </div>
+										  <div class="search e_comments" id="e_comment" style="margin-top: 35px;right: 1px;width: 86%;display:none;">
+												<input type="hidden" value="<?php echo $value->id_comment;?>" id="commentid">
+												<input placeholder="Write a comment" type="text" style="width: 1241px;margin-left: 28px;" id="e_comment" name="e_comment"
+												value="<?php echo $value->comment;?>">
+											</div><!--/. Search -->
+											<?php
+												if($value->id_user == $this->session->userdata('id')){
+											?>
+											<div style="font-size:11px;color:blue;cursor:pointer;margin-top:1px;" class="buttons">
+										    	<span class="cancel_comment" style="display:none;">Cancel</span>
+										  		<span class="edit_comment">Edit</span>&nbsp;
+												<span class="delete_comment" commentid="<?php echo $value->id_comment;?>">Delete</span>
+											</div>
+											<?php
+												}
+											?>
+										</div>
 									</div>
 								</div>
 							<?php

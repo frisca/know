@@ -88,6 +88,15 @@
 										'<p class="komen">' +
 											data.comment +
 										'</p>' +
+										'<div class="search e_comments" id="e_comment" style="margin-top: 35px;right: 1px;width: 86%;display:none;">' +
+											'<input type="hidden" value="'+data.id_comment+'" id="commentid">' +
+											'<input placeholder="Write a comment" type="text" style="width: 1241px;margin-left: 28px;" id="e_comment" name="e_comment" value="'+data.comment+'">'+
+										'</div>' +
+										'<div style="font-size:11px;color:blue;cursor:pointer;margin-top:1px;" class="buttons">' +
+											'<span class="cancel_comment" style="display:none;">Cancel</span>' +
+											'<span class="edit_comment">Edit</span>&nbsp;'+
+											'<span class="delete_comment" commentid="'+data.id_comment+'">Delete</span>'+
+										'</div>' +
 									'</div>' +
 								'</div>' +
 							'</div>');
@@ -110,7 +119,99 @@
 				open: function(event, ui) {
 					$(".ui-autocomplete").css("z-index", 1000)
 				}
-			})
+			});
+
+			// $('div span.edit_comment').on('click', function(event){
+			// 	// alert('test');
+			// 	$(this).parents('.media-body').find('.e_comments').css('display', 'inline-block');
+			// 	$(this).parents('.media-body').find('.komen').css('display', 'none');
+			// 	// $(this).closest('.komen').css('display', 'none');
+			// 	// $(this).closest('.edit_comment').css('display', 'none');
+			// 	$(this).css('display', 'none');
+			// 	$(this).parents('.media-body').find('.cancel_comment').css('display', 'inline-block');
+			// 	$(this).parents('.media-body').find('.delete_comment').css('display', 'none');
+			// 	$("#comments").attr("disabled", true);
+			// });
+
+			$(document).on('click', 'div span.edit_comment', function(event){
+				// alert('test');
+				$(this).parents('.media-body').find('.e_comments').css('display', 'inline-block');
+				$(this).parents('.media-body').find('.komen').css('display', 'none');
+				// $(this).closest('.komen').css('display', 'none');
+				// $(this).closest('.edit_comment').css('display', 'none');
+				$(this).css('display', 'none');
+				$(this).parents('.media-body').find('.cancel_comment').css('display', 'inline-block');
+				$(this).parents('.media-body').find('.delete_comment').css('display', 'none');
+				$("#comments").attr("disabled", true);
+			});
+
+			$(document).on('click', 'div span.cancel_comment', function(){
+				$(this).parents('.media-body').find('.e_comments').css('display', 'none');
+				$(this).parents('.media-body').find('.komen').css('display', 'inline-block');
+				// $(this).closest('.komen').css('display', 'none');
+				// $(this).closest('.edit_comment').css('display', 'none');
+				$(this).css('display', 'none');
+				$(this).parents('.media-body').find('.edit_comment').css('display', 'inline-block');
+				$(this).parents('.media-body').find('.delete_comment').css('display', 'inline-block');
+				$("#comments").attr("disabled", false);
+			});
+
+			$(document).on('keypress', '#e_comment', function(event){
+				var keycode = (event.keyCode ? event.keyCode : event.which);
+				if(keycode == '13'){
+					comment = $('input[name="e_comment"]').val();
+					idComment = $("#commentid").val();
+
+					console.log(comment, idComment);
+					if(comment != ""){
+						$.post( "<?php echo base_url('comment/editComment');?>", { comment: comment, idComment : idComment }, function(data){
+							console.log('response: ', data);
+							// $('.subcomment').append('<div class="geser"' + 
+							// 	'style="margin-left: 100px;margin-top: -4px;">' +
+							// 	'<div class="media" style="padding-bottom: 5px;">' +
+							// 		'<div class="media-left">' +
+							// 			'<img src="<?php echo base_url('assets/images/10.jpg');?>" style="width:40px">' +
+							// 		'</div>' +
+							// 		'<div class="media-body">' +
+							// 			'<h4 class="media-heading title">' + data.nama + '</h4>' +
+							// 			'<p class="komen">' +
+							// 				data.comment +
+							// 			'</p>' +
+							// 		'</div>' +
+							// 	'</div>' +
+							// '</div>');
+							
+							$(event.target).parents('.media-body').find('.komen').text(data.comment);
+							$(event.target).parents('.media-body').find('.komen').css('display', 'inline-block');
+							$('.e_comments').css('display', 'none');
+							$('.edit_comment').css('display', 'inline-block');
+							$('.delete_comment').css('display', 'inline-block');
+							$('.cancel_comment').css('display', 'none');
+							$("#comments").attr("disabled", false);
+						}, 'json');
+					}else{
+						alert("Comment tidak boleh kosong");
+						return false;
+					}
+					$('#e_comment').val('');
+				}
+			});
+
+			$(document).on('click', 'div span.delete_comment', function(event){
+				// idComment = $(this).find("#commentid").val();
+				idComment = $(this).attr("commentid");
+				console.log('idComment: ', idComment);
+				$.post( "<?php echo base_url('comment/deleteComment');?>", { idComment : idComment }, function(data){
+					console.log('data: ', data)
+					if(data == true){
+						$(this).parents('.geser').remove();
+					}else{
+						alert('Failed delete comment');
+					}
+					// $(this).parents('.geser').remove();
+				}, 'json');
+				$(this).parents('.geser').remove();
+			});
 		});
 
 		function getDate(input)
@@ -137,9 +238,9 @@
 			});
 		}
 
-		setInterval(function(){updateUpcoming()}, 1000);
-		setInterval(function(){updateOngoing()}, 1000);
-		setInterval(function(){updateRelease()}, 1000);
+		// setInterval(function(){updateUpcoming()}, 1000);
+		// setInterval(function(){updateOngoing()}, 1000);
+		// setInterval(function(){updateRelease()}, 1000);
 	</script>
 </body>
 </html>
