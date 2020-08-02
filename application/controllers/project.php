@@ -217,10 +217,22 @@ class Project extends CI_Controller {
 
 				$this->load->library('upload', $config);
  
-				if ( ! $this->upload->do_upload('files')){
-					$this->session->set_flashdata('error', 'Data project not saved');
-					redirect(base_url() . 'project/add');
-				}else{
+				// if ( ! $this->upload->do_upload('files')){
+				// 	$this->session->set_flashdata('error', 'Data project not saved');
+				// 	redirect(base_url() . 'project/add');
+				// }else{
+				// 	$con = array('id_project' => $res_project->id_project);
+				// 	$datas = array('files' => $_FILES['files']['name']);
+				// 	$res_upload = $this->all_model->updateData('project', $con, $datas);
+				// 	if($res == false){
+				// 		$this->session->set_flashdata('error', 'Data project not saved');
+				// 		redirect(base_url() . 'project/add');
+				// 	}
+				// 	$this->session->set_flashdata('success', 'Data project saved');
+				// 	redirect(base_url() . 'project/index');
+				// }
+
+				if($this->upload->do_upload('files')){
 					$con = array('id_project' => $res_project->id_project);
 					$datas = array('files' => $_FILES['files']['name']);
 					$res_upload = $this->all_model->updateData('project', $con, $datas);
@@ -230,6 +242,9 @@ class Project extends CI_Controller {
 					}
 					$this->session->set_flashdata('success', 'Data project saved');
 					redirect(base_url() . 'project/index');
+				}else{
+					$this->session->set_flashdata('error', 'Data project not saved');
+					redirect(base_url() . 'project/add');
 				}
 			}
 		}
