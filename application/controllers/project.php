@@ -384,10 +384,7 @@ class Project extends CI_Controller {
 					'files' => $_FILES['files']['name'],
 					'linked_to' => $this->input->post('linked_to')
 				);
-				if ( ! $this->upload->do_upload('files')){
-					$this->session->set_flashdata('error', 'Data project not updated');
-					redirect(base_url() . 'project/edit/' . $this->input->post('id'));
-				}else{
+				if ($this->upload->do_upload('files')){
 					$con = array('id_project' => $this->input->post('id'));
 					$res_upload = $this->all_model->updateData('project', $con, $data);
 					if($res_upload == false){
@@ -396,6 +393,19 @@ class Project extends CI_Controller {
 					}
 					$this->session->set_flashdata('success', 'Data project updated');
 					redirect(base_url() . 'project/index');
+					// $this->session->set_flashdata('error', 'Data project not updated');
+					// redirect(base_url() . 'project/edit/' . $this->input->post('id'));
+				}else{
+					$this->session->set_flashdata('error', 'Data project not updated');
+					redirect(base_url() . 'project/edit/' . $this->input->post('id'));
+					// $con = array('id_project' => $this->input->post('id'));
+					// $res_upload = $this->all_model->updateData('project', $con, $data);
+					// if($res_upload == false){
+					// 	$this->session->set_flashdata('error', 'Data project not updated');
+					// 	redirect(base_url() . 'project/edit/' . $this->input->post('id'));
+					// }
+					// $this->session->set_flashdata('success', 'Data project updated');
+					// redirect(base_url() . 'project/index');
 				}
 			}
 		}
