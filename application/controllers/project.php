@@ -316,11 +316,11 @@ class Project extends CI_Controller {
 					'linked_to' => $this->input->post('linked_to')
 				);
 				$res = $this->all_model->updateData('project', $condition, $data);
+
 				if($res == false){
 					$this->session->set_flashdata('error', 'Data project not saved');
 					redirect(base_url() . 'product/edit');
 				}
-
 				$this->session->set_flashdata('success', 'Data project saved');
 				redirect(base_url() . 'project/index');
 			}else{
