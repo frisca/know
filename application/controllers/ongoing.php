@@ -107,6 +107,7 @@ class Ongoing extends CI_Controller {
 		$data['comment'] = $this->all_model->getCommentByProject($id)->result();
 		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
 		$data['nama'] = $profile->nama;
+		$data['projects'] = $this->all_model->getAllProjectByNonId($id)->result();
 		$this->load->view('ongoing/detail', $data);
 	}
 

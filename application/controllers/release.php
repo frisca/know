@@ -131,7 +131,8 @@ class Release extends CI_Controller {
 		$data['nama'] = $profile->nama;
         $data['project'] = $this->all_model->getDetailProjectById($id)->row();
         $data['count'] = $this->all_model->getCommentByProject($id)->num_rows();
-        $data['comment'] = $this->all_model->getCommentByProject($id)->result();
+		$data['comment'] = $this->all_model->getCommentByProject($id)->result();
+		$data['projects'] = $this->all_model->getAllProjectByNonId($id)->result();
         $this->load->view('release/detail', $data);
     }
 

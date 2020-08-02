@@ -46,6 +46,23 @@
 									<?php echo $project->files;?>
 								</a>
 							</div>
+							<br>
+							<?php
+								if(!empty($projects)){
+									foreach($projects as $values){
+										if($values->id_project == $project->linked_to){
+							?>
+							<div>
+								<span>
+									Project Linked to :
+									<a href="<?php echo base_url('project/views/' . $values->id_project);?>"><?php echo $values->nama_project;?></a>
+								</span>
+							</div>
+							<?php
+										}
+									}
+								}
+							?>
 						</div>
 						<div class="cardbox-base">
 							<ul>

@@ -40,6 +40,23 @@
 								</td>
 							</tr>
 							<tr>
+								<th>Linked To</th>
+								<td>
+									<?php
+										if(!empty($projects)){
+											foreach($projects as $values){
+												if($values->id_project == $project->linked_to){
+									?>
+												
+												<a href="<?php echo base_url('project/views/' . $values->id_project);?>"><?php echo $values->nama_project;?></a>
+									<?php
+												}
+											}
+										}
+									?>
+								</td>
+							</tr>
+							<tr>
 								<th>Start Date</th>
 								<td><?php echo date('d/m/Y', strtotime($project->start_date))?></td>
 							</tr>

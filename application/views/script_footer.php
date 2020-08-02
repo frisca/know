@@ -46,6 +46,7 @@
 			});
 
     		CKEDITOR.replace('edi');
+			CKEDITOR.replace('edi2');
 			$('[data-toggle="tooltip"]').tooltip();
 
 			$("#project").click(function(){

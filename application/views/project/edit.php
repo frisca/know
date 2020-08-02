@@ -68,6 +68,27 @@
 					    </div>
 
 						<div class="form-group has-warning">
+					        <label class="control-label" for="inputWarning1">Linked To</label>
+					        <select class="form-control1" name="linked_to">
+								<?php
+									if(!empty($projects)){
+										foreach($projects as $values){
+											if($values->id_project == $project->linked_to){
+								?>
+												<option value="<?php echo $values->id_project?>" selected><?php echo $values->nama_project;?></option>
+								<?php
+											}else{
+								?>
+												<option value="<?php echo $values->id_project?>"><?php echo $values->nama_project;?></option>
+								<?php
+											}
+										}
+									}
+								?>
+							</select>
+					    </div>
+
+						<div class="form-group has-warning">
 							<label class="control-label" for="inputWarning1">Start Date</label>
 						    <input type="text" id="start_date" class="form-control1" name="start_date" value="<?php echo date('d/m/Y', strtotime($project->start_date))?>">
 						</div>

@@ -137,6 +137,18 @@ class All_model extends CI_Model {
 		$this->db->query($query);
 		return true;
 	}
+
+	public function getAllProjectByNonId($id)
+	{
+		$query = "SELECT * FROM project where id_project != " . $id;
+		return $this->db->query($query); 
+	}
+
+	public function getProjectByNonId($id)
+	{
+		$query = "SELECT * FROM project where linked_to = " . $id;
+		return $this->db->query($query); 
+	}
 }
 
 /* End of file welcome.php */

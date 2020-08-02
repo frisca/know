@@ -120,6 +120,7 @@ class Project extends CI_Controller {
 		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
 		$data['nama'] = $profile->nama;
 		$data['product'] = $this->all_model->getListProduct()->result();  
+		$data['project'] = $this->all_model->getAllData('project')->result();  
 		$this->load->view('project/add', $data);
 	}
 
@@ -175,7 +176,8 @@ class Project extends CI_Controller {
 					'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
 					'status'   => $status,
 					'created_date' => date('Y-m-d'),
-					'created_by' => $this->session->userdata('id')
+					'created_by' => $this->session->userdata('id'),
+					'linked_to' => $this->input->post('linked_to')
 				);
 
 				$res = $this->all_model->insertData('project', $data);
@@ -195,7 +197,8 @@ class Project extends CI_Controller {
 					'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
 					'status'   => $status,
 					'created_date' => date('Y-m-d'),
-					'created_by' => $this->session->userdata('id')
+					'created_by' => $this->session->userdata('id'),
+					'linked_to' => $this->input->post('linked_to')
 				);
 
 				$res = $this->all_model->insertData('project', $data);
@@ -244,6 +247,7 @@ class Project extends CI_Controller {
 		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
 		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
 		$data['nama'] = $profile->nama;
+		$data['projects'] = $this->all_model->getAllProjectByNonId($id)->result();
 		$this->load->view('project/edit', $data);
 	}
 
@@ -293,7 +297,8 @@ class Project extends CI_Controller {
 					'start_date' => date('Y-m-d', strtotime(strtr($this->input->post('start_date'), '/', '-'))),
 					'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
 					'status'   => $status,
-					'updated_date' => date('Y-m-d')
+					'updated_date' => date('Y-m-d'),
+					'linked_to' => $this->input->post('linked_to')
 				);
 				$res = $this->all_model->updateData('project', $condition, $data);
 				if($res == false){
@@ -361,7 +366,8 @@ class Project extends CI_Controller {
 					'end_date' => date('Y-m-d', strtotime(strtr($this->input->post('end_date'), '/', '-'))),
 					'status'   => $status,
 					'updated_date' => date('Y-m-d'),
-					'files' => $_FILES['files']['name']
+					'files' => $_FILES['files']['name'],
+					'linked_to' => $this->input->post('linked_to')
 				);
 				if ( ! $this->upload->do_upload('files')){
 					$this->session->set_flashdata('error', 'Data project not updated');
@@ -494,6 +500,7 @@ class Project extends CI_Controller {
 		$data['project'] = $this->all_model->getDataByCondition('project', $condition)->row();
 		$profile = $this->all_model->getDataByCondition('user', array('id' => $this->session->userdata('id')))->row();
 		$data['nama'] = $profile->nama;
+		$data['projects'] = $this->all_model->getAllProjectByNonId($id)->result();
 		$this->load->view('project/view', $data);
 	}
 

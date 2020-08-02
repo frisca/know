@@ -55,6 +55,21 @@
 					    </div>
 
 						<div class="form-group has-warning">
+					        <label class="control-label" for="inputWarning1">Linked To</label>
+					        <select class="form-control1" name="linked_to">
+								<?php
+									if(!empty($project)){
+										foreach($project as $values){
+								?>
+									<option value="<?php echo $values->id_project?>"><?php echo $values->nama_project;?></option>
+								<?php
+										}
+									}
+								?>
+							</select>
+					    </div>
+
+						<div class="form-group has-warning">
 							<label class="control-label" for="inputWarning1">Start Date</label>
 						    <input type="text" id="start_date" class="form-control1 input-lg" name="start_date" value=""></p>
 						</div>
